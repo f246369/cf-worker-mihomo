@@ -269,7 +269,7 @@ proxy-groups:
   - { name: 🇬🇱格陵兰自动, <<: *u, hidden: true, filter: '(?i)🇬🇱|\\bGL\\b|格陵兰|Greenland' }
   - { name: 🇪🇷厄立特里亚自动, <<: *u, hidden: true, filter: '(?i)🇪🇷|\\bER\\b|厄立特里亚|Eritrea' }
   - { name: 🇦🇽奥兰群岛自动, <<: *u, hidden: true, filter: '(?i)🇦🇽|\\bAX\\b|奥兰|Åland' }
-  - { name: GLOBAL, type: select, include-all: true, proxies: [ 🚀全球代理, 🟢手动选择, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, Google, Telegram, Twitter, 哔哩哔哩, 哔哩哔哩国际版, Ehentai, 巴哈姆特, YouTube, NETFLIX, Spotify, Github, Pixiv ], icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/GLOBAL.webp }
+  - { name: GLOBAL, type: select, include-all: true, proxies: [ 🚀全球代理, 🟢手动选择, 🪧广告拦截, 🔎HttpDNS, 💧泄漏拦截, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, Google, Telegram, Twitter, 哔哩哔哩, 哔哩哔哩国际版, Ehentai, 巴哈姆特, YouTube, NETFLIX, Spotify, Github, Pixiv ], icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/GLOBAL.webp }
 
 rules:
   - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-RULES
