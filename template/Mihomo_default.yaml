@@ -10,6 +10,7 @@ proxy-groups:
   - { name: 🚫静默拒绝, type: select, hidden: true, proxies: [REJECT-DROP] }
   - { name: ⚪绕过连接, type: select, hidden: true, proxies: [PASS] }
   - { name: 🪧广告拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+  - { name: 🔎HttpDNS, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
   - { name: 💧泄漏拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
   - { name: 🎯全球直连, type: select, proxies: [🎯全局直连, 🚀全球代理, 🟢手动选择, ♻️自动选择] }
   - { name: ♻️自动选择, <<: *u, tolerance: 1, type: url-test }
@@ -257,36 +258,47 @@ proxy-groups:
   - { name: GLOBAL, type: select, include-all: true, proxies: [ 🚀全球代理, 🟢手动选择, 🪧广告拦截, 💧泄漏拦截, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移 ], icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/GLOBAL.webp }
 
 rules:
-  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-REJECT
-  - RULE-SET,Private,🎯全球直连
-  - RULE-SET,CNcidr,🎯全球直连
+  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-RULES
   - MATCH,🚀全球代理
 
 sub-rules:
-  SUB-REJECT:
-    - RULE-SET,Advertising-ads,🪧广告拦截
-    - RULE-SET,STUN,💧泄漏拦截
+  SUB-RULES:
+    - RULE-SET,ads_domain,🪧广告拦截
+    - RULE-SET,blockhttpdns_domain,🔎HttpDNS
+    - RULE-SET,blockhttpdns_ip,🔎HttpDNS,no-resolve #仅匹配ip，不解析域名
+    - DOMAIN-KEYWORD,httpdns,🔎HttpDNS
+    - RULE-SET,stun_domain,💧泄漏拦截
     - DST-PORT,3478,💧泄漏拦截
     - AND,(NETWORK,TCP),(DST-PORT,5349),💧泄漏拦截
     - AND,(NETWORK,UDP),(DST-PORT,5350),💧泄漏拦截
     - AND,(NETWORK,UDP),(DST-PORT,5351),💧泄漏拦截
     - AND,(NETWORK,UDP),(DST-PORT,19302),💧泄漏拦截
     - DOMAIN-KEYWORD,stun,💧泄漏拦截
+    - RULE-SET,private_domain,🎯全球直连
+    - RULE-SET,cn_ip,🎯全球直连
 
 rule-providers:
-  Advertising-ads:
+  ads_domain:
     <<: *domain_mrs
-    url: https://cdn.jsdmirror.com/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs
-    path: ./ruleset/Advertising_ads_Domain.mrs
-  STUN:
+    url: "https://cdn.jsdmirror.com/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs"
+    path: ./ruleset/ads_Domain.mrs
+  blockhttpdns_domain:
     <<: *domain_mrs
-    url: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/rules/mihomo/STUN/STUN_Domain.mrs
+    url: "https://cdn.jsdmirror.com/gh/peiyingyao/Rule-for-OCD@master/rule/Clash/BlockHttpDNS/BlockHttpDNS_OCD_Domain.mrs"
+    path: ./ruleset/Category_httpdns_Domain.mrs
+  blockhttpdns_ip:
+    <<: *ipcidr_mrs
+    url: "https://cdn.jsdmirror.com/gh/peiyingyao/Rule-for-OCD@master/rule/Clash/BlockHttpDNS/BlockHttpDNS_OCD_IP.mrs"
+    path: ./ruleset/Category_httpdns_IP.mrs
+  stun_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/Kwisma/rules@main/rules/mihomo/STUN/STUN_Domain.mrs"
     path: ./ruleset/STUN_Domain.mrs
-  CNcidr:
+  cn_ip:
     <<: *ipcidr_mrs
     url: "https://cdn.jsdmirror.com/gh/Kwisma/clash-rules@release/cncidr.mrs"
     path: ./ruleset/CN_IP.mrs
-  Private:
+  private_domain:
     <<: *domain_mrs
     url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs"
     path: ./ruleset/Private_Domain.mrs

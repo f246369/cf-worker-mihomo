@@ -1002,26 +1002,22 @@ export function configs() {
                         label: '默认(精简版) (仅国内外分流) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default.yaml',
                     },
-                    // {
-                    //     label: '默认(精简版)(仅国内外分流)[Dustinwin_ads] (与Github同步) ',
-                    //     value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_Ads_Dustinwin.yaml',
-                    // },
                     {
                         label: '默认(精简版) (仅国内外分流) (无去广告) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_NoAds.yaml',
                     },
                     {
-                        label: '默认(mihomo官方版) (无去广告) (与Github同步) ',
+                        label: '默认(mihomo官方版) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_official.yaml',
+                    },
+                    {
+                        label: '默认(mihomo官方版) (无去广告) (与Github同步) ',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_official_NoAds.yaml',
                     },
                     {
                         label: '默认(全分组) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full.yaml',
                     },
-                    // {
-                    //     label: '默认(全分组)[Dustinwin_ads] (与Github同步) ',
-                    //     value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_Ads_Dustinwin.yaml',
-                    // },
                     {
                         label: '默认(全分组) (无去广告) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_NoAds.yaml',
@@ -1063,10 +1059,6 @@ export function configs() {
                     {
                         label: '布丁狗的订阅转换 (与Github同步)',
                         value: 'https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/%E5%B8%83%E4%B8%81%E7%8B%97%E7%9A%84%E8%AE%A2%E9%98%85%E8%BD%AC%E6%8D%A2.yaml',
-                    },
-                    {
-                        label: '6D 自用模板 ',
-                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_6D_自用模板.yaml',
                     },
                     {
                         label: 'ACL4SSR_Online_Full 全分组版 (与Github同步)',

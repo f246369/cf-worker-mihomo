@@ -11,6 +11,9 @@ proxy-groups:
   - { name: 🚫拒绝连接, type: select, hidden: true, proxies: [REJECT] }
   - { name: 🚫静默拒绝, type: select, hidden: true, proxies: [REJECT-DROP] }
   - { name: ⚪绕过连接, type: select, hidden: true, proxies: [PASS] }
+  - { name: 🪧广告拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+  - { name: 🔎HttpDNS, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+  - { name: 💧泄漏拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
   - { name: 🎯全球直连, type: select, proxies: [🎯全局直连, 🚀全球代理, 🟢手动选择, ♻️自动选择] }
   - { name: ♻️自动选择, <<: *u, tolerance: 1, type: url-test }
   - { name: ⚡️均衡负载, <<: *u, strategy: round-robin, type: load-balance }
@@ -269,91 +272,140 @@ proxy-groups:
   - { name: GLOBAL, type: select, include-all: true, proxies: [ 🚀全球代理, 🟢手动选择, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, Google, Telegram, Twitter, 哔哩哔哩, 哔哩哔哩国际版, Ehentai, 巴哈姆特, YouTube, NETFLIX, Spotify, Github, Pixiv ], icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/GLOBAL.webp }
 
 rules:
-  - RULE-SET,private_ip,🎯全球直连,no-resolve
-  - RULE-SET,private_domain,🎯全球直连
-  - RULE-SET,github_domain,Github
-  - RULE-SET,twitter_domain,Twitter
-  - RULE-SET,youtube_domain,YouTube
-  - RULE-SET,google_domain,Google
-  - RULE-SET,telegram_domain,Telegram
-  - RULE-SET,netflix_domain,NETFLIX
-  - RULE-SET,ehentai_domain,Ehentai
-  - RULE-SET,bilibili_domain,哔哩哔哩
-  - RULE-SET,biliintl_domain,哔哩哔哩国际版
-  - RULE-SET,bahamut_domain,巴哈姆特
-  - RULE-SET,spotify_domain,Spotify
-  - RULE-SET,pixiv_domain,Pixiv
-  - RULE-SET,cn_domain,⚪绕过连接
-  - RULE-SET,geolocation-!cn,🚀全球代理
-  - RULE-SET,google_ip,Google,no-resolve
-  - RULE-SET,netflix_ip,NETFLIX,no-resolve
-  - RULE-SET,telegram_ip,Telegram,no-resolve
-  - RULE-SET,twitter_ip,Twitter,no-resolve
-  - RULE-SET,cn_ip,🎯全球直连
+  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-RULES
   - MATCH,🚀全球代理
-
+sub-rules:
+  SUB-RULES:
+    - RULE-SET,ads_domain,🪧广告拦截
+    - RULE-SET,blockhttpdns_domain,🔎HttpDNS
+    - RULE-SET,blockhttpdns_ip,🔎HttpDNS,no-resolve #仅匹配ip，不解析域名
+    - DOMAIN-KEYWORD,httpdns,🔎HttpDNS
+    - RULE-SET,stun_domain,💧泄漏拦截
+    - DST-PORT,3478,💧泄漏拦截
+    - AND,(NETWORK,TCP),(DST-PORT,5349),💧泄漏拦截
+    - AND,(NETWORK,UDP),(DST-PORT,5350),💧泄漏拦截
+    - AND,(NETWORK,UDP),(DST-PORT,5351),💧泄漏拦截
+    - AND,(NETWORK,UDP),(DST-PORT,19302),💧泄漏拦截
+    - DOMAIN-KEYWORD,stun,💧泄漏拦截
+    - RULE-SET,private_ip,🎯全球直连,no-resolve
+    - RULE-SET,private_domain,🎯全球直连
+    - RULE-SET,github_domain,Github
+    - RULE-SET,twitter_domain,Twitter
+    - RULE-SET,youtube_domain,YouTube
+    - RULE-SET,google_domain,Google
+    - RULE-SET,telegram_domain,Telegram
+    - RULE-SET,netflix_domain,NETFLIX
+    - RULE-SET,ehentai_domain,Ehentai
+    - RULE-SET,bilibili_domain,哔哩哔哩
+    - RULE-SET,biliintl_domain,哔哩哔哩国际版
+    - RULE-SET,bahamut_domain,巴哈姆特
+    - RULE-SET,spotify_domain,Spotify
+    - RULE-SET,pixiv_domain,Pixiv
+    - RULE-SET,cn_domain,⚪绕过连接
+    - RULE-SET,geolocation-!cn,🚀全球代理
+    - RULE-SET,google_ip,Google,no-resolve
+    - RULE-SET,netflix_ip,NETFLIX,no-resolve
+    - RULE-SET,telegram_ip,Telegram,no-resolve
+    - RULE-SET,twitter_ip,Twitter,no-resolve
+    - RULE-SET,cn_ip,🎯全球直连
 rule-providers:
+  ads_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs"
+    path: ./ruleset/ads_Domain.mrs
+  blockhttpdns_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/peiyingyao/Rule-for-OCD@master/rule/Clash/BlockHttpDNS/BlockHttpDNS_OCD_Domain.mrs"
+    path: ./ruleset/Category_httpdns_Domain.mrs
+  blockhttpdns_ip:
+    <<: *ipcidr_mrs
+    url: "https://cdn.jsdmirror.com/gh/peiyingyao/Rule-for-OCD@master/rule/Clash/BlockHttpDNS/BlockHttpDNS_OCD_IP.mrs"
+    path: ./ruleset/Category_httpdns_IP.mrs
+  stun_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/Kwisma/rules@main/rules/mihomo/STUN/STUN_Domain.mrs"
+    path: ./ruleset/STUN_Domain.mrs
   private_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs"
+    path: ./ruleset/private_domain.mrs
   cn_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs"
+    path: ./ruleset/cn_domain.mrs
   biliintl_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/biliintl.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/biliintl.mrs"
+    path: ./ruleset/biliintl_domain.mrs
   ehentai_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ehentai.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/ehentai.mrs"
+    path: ./ruleset/ehentai_domain.mrs
   github_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs"
+    path: ./ruleset/github_domain.mrs
   twitter_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/twitter.mrs"
+    path: ./ruleset/twitter_domain.mrs
   youtube_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs"
+    path: ./ruleset/youtube_domain.mrs
   google_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs"
+    path: ./ruleset/google_domain.mrs
   telegram_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs"
+    path: ./ruleset/telegram_domain.mrs
   netflix_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs"
+    path: ./ruleset/netflix_domain.mrs
   bilibili_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bilibili.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bilibili.mrs"
+    path: ./ruleset/bilibili_domain.mrs
   bahamut_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bahamut.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bahamut.mrs"
+    path: ./ruleset/bahamut_domain.mrs
   spotify_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs"
+    path: ./ruleset/spotify_domain.mrs
   pixiv_domain:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/pixiv.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/pixiv.mrs"
+    path: ./ruleset/pixiv_domain.mrs
   geolocation-!cn:
     <<: *domain_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
-
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.mrs"
+    path: ./ruleset/geolocation-!cn.mrs
   private_ip:
     <<: *ipcidr_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/private.mrs"
+    path: ./ruleset/private_ip.mrs
   cn_ip:
     <<: *ipcidr_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs"
+    path: ./ruleset/cn_ip.mrs
   google_ip:
     <<: *ipcidr_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs"
+    path: ./ruleset/google_ip.mrs
   netflix_ip:
     <<: *ipcidr_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/netflix.mrs"
+    path: ./ruleset/netflix_ip.mrs
   twitter_ip:
     <<: *ipcidr_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/twitter.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/twitter.mrs"
+    path: ./ruleset/twitter_ip.mrs
   telegram_ip:
     <<: *ipcidr_mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs"
+    path: ./ruleset/telegram_ip.mrs

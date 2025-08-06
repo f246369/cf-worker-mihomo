@@ -255,15 +255,18 @@ proxy-groups:
   - { name: GLOBAL, type: select, include-all: true, proxies: [ 🚀全球代理, 🟢手动选择, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移 ], icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/GLOBAL.webp }
 
 rules:
-  - RULE-SET,Private,🎯全球直连
-  - RULE-SET,CNcidr,🎯全球直连
+  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-RULES
   - MATCH,🚀全球代理
+sub-rules:
+  SUB-RULES:
+    - RULE-SET,private_domain,🎯全球直连
+    - RULE-SET,cn_ip,🎯全球直连
 rule-providers:
-  CNcidr:
+  cn_ip:
     <<: *ipcidr_mrs
     url: "https://cdn.jsdmirror.com/gh/Kwisma/clash-rules@release/cncidr.mrs"
     path: ./ruleset/CN_IP.mrs
-  Private:
+  private_domain:
     <<: *domain_mrs
     url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs"
     path: ./ruleset/Private_Domain.mrs

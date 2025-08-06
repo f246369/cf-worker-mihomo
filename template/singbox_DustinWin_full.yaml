@@ -17,57 +17,57 @@ direct: &direct { type: selector, interrupt_exist_connections: true, outbounds: 
 route:
   final: 🚀 节点选择
   rules:
-    - { rule_set: [ Ads ], outbound: 🪧 广告拦截 }
-    - { type: logical, mode: or, rules: [ { port: [ 3478 ] }, { network: [ tcp ], port: [ 5349 ] }, { network: [ udp ], port: [ 5350, 5351, 19302 ] }, { rule_set: [ STUN ] } ], outbound: 💧 泄漏拦截 }
-    - { rule_set: [ BlockHttpDNS ], outbound: 🔎 HttpDNS }
-    - { rule_set: [ private, private_ip ], outbound: 🎯 全球直连 }
-    - { rule_set: [ apple_cn ], outbound: apple }
-    - { rule_set: [ appletv ], outbound: appletv }
-    - { rule_set: [ bilibili ], outbound: bilibili }
-    - { rule_set: [ disney ], outbound: disney }
-    - { rule_set: [ games, games_ip ], outbound: 国际游戏 }
-    - { rule_set: [ games_cn ], outbound: 国内游戏 }
-    - { rule_set: [ media, media_ip ], outbound: 国际媒体 }
-    - { rule_set: [ microsoft_cn ], outbound: 微软服务 }
-    - { rule_set: [ netflix, netflix_ip ], outbound: netflix }
-    - { rule_set: [ networktest ], outbound: speedtest }
-    - { rule_set: [ openai ], outbound: openai }
-    - { rule_set: [ primevideo ], outbound: 亚马逊TV }
-    - { rule_set: [ spotify ], outbound: spotify }
-    - { rule_set: [ tiktok ], outbound: tiktok }
-    - { rule_set: [ youtube ], outbound: youtube }
+    - { rule_set: [ ads_domain ], outbound: 🪧 广告拦截 }
+    - { type: logical, mode: or, rules: [ { port: [ 3478 ] }, { network: [ tcp ], port: [ 5349 ] }, { network: [ udp ], port: [ 5350, 5351, 19302 ] }, { rule_set: [ stun_domain ] } ], outbound: 💧 泄漏拦截 }
+    - { rule_set: [ blockhttpdns_domain ], outbound: 🔎 HttpDNS }
+    - { rule_set: [ private_domain, private_ip ], outbound: 🎯 全球直连 }
+    - { rule_set: [ apple_cn_domain ], outbound: apple }
+    - { rule_set: [ appletv_domain ], outbound: appletv }
+    - { rule_set: [ bilibili_domain ], outbound: bilibili }
+    - { rule_set: [ disney_domain ], outbound: disney }
+    - { rule_set: [ games_domain, games_ip ], outbound: 国际游戏 }
+    - { rule_set: [ games_cn_domain ], outbound: 国内游戏 }
+    - { rule_set: [ media_domain, media_ip ], outbound: 国际媒体 }
+    - { rule_set: [ microsoft_cn_domain ], outbound: 微软服务 }
+    - { rule_set: [ netflix_domain, netflix_ip ], outbound: netflix }
+    - { rule_set: [ networktest_domain ], outbound: speedtest }
+    - { rule_set: [ openai_domain ], outbound: openai }
+    - { rule_set: [ primevideo_domain ], outbound: 亚马逊TV }
+    - { rule_set: [ spotify_domain ], outbound: spotify }
+    - { rule_set: [ tiktok_domain ], outbound: tiktok }
+    - { rule_set: [ youtube_domain ], outbound: youtube }
     - { rule_set: [ telegram_ip ], outbound: telegram }
     - { action: resolve }
     - { rule_set: [ cn_ip ], outbound: 🎯 全球直连 }
   rule_set:
     # DustinWin 规则集
-    - { tag: apple_cn, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/apple-cn.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: appletv, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/appletv.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: Ads, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/ads.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: bilibili, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/bilibili.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: cn, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/cn.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: apple_cn_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/apple-cn.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: appletv_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/appletv.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: ads_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/ads.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: bilibili_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/bilibili.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: cn_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/cn.srs, format: binary, download_detour: 🎯 全球直连 }
     - { tag: cn_ip, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/cnip.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: disney, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/disney.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: games, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/games.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: games_cn, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/games-cn.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: disney_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/disney.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: games_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/games.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: games_cn_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/games-cn.srs, format: binary, download_detour: 🎯 全球直连 }
     - { tag: games_ip, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/gamesip.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: media, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/media.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: media_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/media.srs, format: binary, download_detour: 🎯 全球直连 }
     - { tag: media_ip, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/mediaip.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: microsoft_cn, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/microsoft-cn.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: netflix, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/netflix.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: microsoft_cn_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/microsoft-cn.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: netflix_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/netflix.srs, format: binary, download_detour: 🎯 全球直连 }
     - { tag: netflix_ip, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/netflixip.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: networktest, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/networktest.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: openai, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/ai.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: primevideo, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/primevideo.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: private, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/private.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: networktest_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/networktest.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: openai_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/ai.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: primevideo_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/primevideo.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: private_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/private.srs, format: binary, download_detour: 🎯 全球直连 }
     - { tag: private_ip, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/privateip.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: spotify, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/spotify.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: spotify_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/spotify.srs, format: binary, download_detour: 🎯 全球直连 }
     - { tag: telegram_ip, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/telegramip.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: tiktok, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/tiktok.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: youtube, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/youtube.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: tiktok_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/tiktok.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: youtube_domain, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/youtube.srs, format: binary, download_detour: 🎯 全球直连 }
     # senshinya 规则集
-    - { tag: STUN, type: remote, url: https://cdn.jsdmirror.com/gh/senshinya/singbox_ruleset@main/rule/STUN/STUN.srs, format: binary, download_detour: 🎯 全球直连 }
-    - { tag: BlockHttpDNS, type: remote, url: https://cdn.jsdmirror.com/gh/senshinya/singbox_ruleset@main/rule/BlockHttpDNS/BlockHttpDNS.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: stun_domain, type: remote, url: https://cdn.jsdmirror.com/gh/senshinya/singbox_ruleset@main/rule/STUN/STUN.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: blockhttpdns_domain, type: remote, url: https://cdn.jsdmirror.com/gh/senshinya/singbox_ruleset@main/rule/BlockHttpDNS/BlockHttpDNS.srs, format: binary, download_detour: 🎯 全球直连 }
 outbounds:
   - { tag: 🚀 节点选择, type: selector, interrupt_exist_connections: true, outbounds: [ ♻️ 自动选择, 🟢 手动选择, 🇦🇩 安道尔自动, 🇦🇪 阿联酋自动, 🇦🇫 阿富汗自动, 🇦🇬 安提瓜和巴布达自动, 🇦🇮 安圭拉自动, 🇦🇱 阿尔巴尼亚自动, 🇦🇲 亚美尼亚自动, 🇦🇴 安哥拉自动, 🇦🇷 阿根廷自动, 🇦🇸 美属萨摩亚自动, 🇦🇹 奥地利自动, 🇦🇺 澳大利亚自动, 🇦🇼 阿鲁巴自动, 🇦🇽 奥兰群岛自动, 🇦🇿 阿塞拜疆自动, 🇧🇦 波斯尼亚和黑塞哥维那自动, 🇧🇧 巴巴多斯自动, 🇧🇩 孟加拉国自动, 🇧🇪 比利时自动, 🇧🇫 布基纳法索自动, 🇧🇬 保加利亚自动, 🇧🇭 巴林自动, 🇧🇮 布隆迪自动, 🇧🇯 贝宁自动, 🇧🇱 法属圣巴泰勒米自动, 🇧🇲 百慕大自动, 🇧🇳 文莱达鲁萨兰国自动, 🇧🇴 玻利维亚自动, 🇧🇶 博内尔、圣尤斯特歇斯和萨巴自动, 🇧🇷 巴西自动, 🇧🇸 巴哈马自动, 🇧🇹 不丹自动, 🇧🇼 博茨瓦纳自动, 🇧🇾 白俄罗斯自动, 🇧🇿 伯利兹自动, 🇨🇦 加拿大自动, 🇨🇩 刚果民主共和国自动, 🇨🇫 中非共和国自动, 🇨🇬 刚果自动, 🇨🇭 瑞士自动, 🇨🇮 科特迪瓦自动, 🇨🇰 库克群岛自动, 🇨🇱 智利自动, 🇨🇲 喀麦隆自动, 🇨🇳 中国自动, 🇨🇴 哥伦比亚自动, 🇨🇷 哥斯达黎加自动, 🇨🇺 古巴自动, 🇨🇻 佛得角自动, 🇨🇼 库拉索自动, 🇨🇾 塞浦路斯自动, 🇨🇿 捷克自动, 🇩🇪 德国自动, 🇩🇯 吉布提自动, 🇩🇰 丹麦自动, 🇩🇲 多米尼克自动, 🇩🇴 多米尼加共和国自动, 🇩🇿 阿尔及利亚自动, 🇪🇨 厄瓜多尔自动, 🇪🇪 爱沙尼亚自动, 🇪🇬 埃及自动, 🇪🇷 厄立特里亚自动, 🇪🇸 西班牙自动, 🇪🇹 埃塞俄比亚自动, 🇪🇺 欧洲联盟自动, 🇫🇮 芬兰自动, 🇫🇯 斐济自动, 🇫🇰 福克兰群岛自动, 🇫🇲 密克罗尼西亚联邦自动, 🇫🇴 法罗群岛自动, 🇫🇷 法国自动, 🇬🇦 加蓬自动, 🇬🇧 英国自动, 🇬🇩 格林纳达自动, 🇬🇪 格鲁吉亚自动, 🇬🇫 法属圭亚那自动, 🇬🇬 格恩西岛自动, 🇬🇭 加纳自动, 🇬🇮 直布罗陀自动, 🇬🇱 格陵兰自动, 🇬🇲 冈比亚自动, 🇬🇳 几内亚自动, 🇬🇵 瓜德罗普自动, 🇬🇶 赤道几内亚自动, 🇬🇷 希腊自动, 🇬🇹 危地马拉自动, 🇬🇺 关岛自动, 🇬🇼 几内亚比绍自动, 🇬🇾 圭亚那自动, 🇭🇰 香港自动, 🇭🇳 洪都拉斯自动, 🇭🇷 克罗地亚自动, 🇭🇹 海地自动, 🇭🇺 匈牙利自动, 🇮🇩 印度尼西亚自动, 🇮🇪 爱尔兰自动, 🇮🇱 以色列自动, 🇮🇲 曼岛自动, 🇮🇳 印度自动, 🇮🇴 英属印度洋领地自动, 🇮🇶 伊拉克自动, 🇮🇷 伊朗自动, 🇮🇸 冰岛自动, 🇮🇹 意大利自动, 🇯🇪 泽西岛自动, 🇯🇲 牙买加自动, 🇯🇴 约旦自动, 🇯🇵 日本自动, 🇰🇪 肯尼亚自动, 🇰🇬 吉尔吉斯斯坦自动, 🇰🇭 柬埔寨自动, 🇰🇮 基里巴斯自动, 🇰🇲 科摩罗自动, 🇰🇳 圣基茨和尼维斯自动, 🇰🇵 朝鲜自动, 🇰🇷 韩国自动, 🇰🇼 科威特自动, 🇰🇾 开曼群岛自动, 🇰🇿 哈萨克斯坦自动, 🇱🇦 老挝自动, 🇱🇧 黎巴嫩自动, 🇱🇨 圣卢西亚自动, 🇱🇮 列支敦士登自动, 🇱🇰 斯里兰卡自动, 🇱🇷 利比里亚自动, 🇱🇸 莱索托自动, 🇱🇹 立陶宛自动, 🇱🇺 卢森堡自动, 🇱🇻 拉脱维亚自动, 🇱🇾 利比亚自动, 🇲🇦 摩洛哥自动, 🇲🇨 摩纳哥自动, 🇲🇩 摩尔多瓦自动, 🇲🇪 黑山自动, 🇲🇫 圣马丁（法属）自动, 🇲🇬 马达加斯加自动, 🇲🇭 马绍尔群岛自动, 🇲🇰 北马其顿自动, 🇲🇱 马里自动, 🇲🇲 缅甸自动, 🇲🇳 蒙古自动, 🇲🇴 澳门自动, 🇲🇵 北马里亚纳群岛自动, 🇲🇶 马提尼克自动, 🇲🇷 毛里塔尼亚自动, 🇲🇸 蒙特塞拉特自动, 🇲🇹 马耳他自动, 🇲🇺 毛里求斯自动, 🇲🇻 马尔代夫自动, 🇲🇼 马拉维自动, 🇲🇽 墨西哥自动, 🇲🇾 马来西亚自动, 🇲🇿 莫桑比克自动, 🇳🇦 纳米比亚自动, 🇳🇨 新喀里多尼亚自动, 🇳🇪 尼日尔自动, 🇳🇫 诺福克岛自动, 🇳🇬 尼日利亚自动, 🇳🇮 尼加拉瓜自动, 🇳🇱 荷兰自动, 🇳🇴 挪威自动, 🇳🇵 尼泊尔自动, 🇳🇷 瑙鲁自动, 🇳🇺 纽埃自动, 🇳🇿 新西兰自动, 🇴🇲 阿曼自动, 🇵🇦 巴拿马自动, 🇵🇪 秘鲁自动, 🇵🇫 法属波利尼西亚自动, 🇵🇬 巴布亚新几内亚自动, 🇵🇭 菲律宾自动, 🇵🇰 巴基斯坦自动, 🇵🇱 波兰自动, 🇵🇲 圣皮埃尔和密克隆自动, 🇵🇷 波多黎各自动, 🇵🇸 巴勒斯坦自动, 🇵🇹 葡萄牙自动, 🇵🇼 帕劳自动, 🇵🇾 巴拉圭自动, 🇶🇦 卡塔尔自动, 🇷🇪 留尼汪自动, 🇷🇴 罗马尼亚自动, 🇷🇸 塞尔维亚自动, 🇷🇺 俄罗斯自动, 🇷🇼 卢旺达自动, 🇸🇦 沙特阿拉伯自动, 🇸🇧 所罗门群岛自动, 🇸🇨 塞舌尔自动, 🇸🇩 苏丹自动, 🇸🇪 瑞典自动, 🇸🇬 新加坡自动, 🇸🇮 斯洛文尼亚自动, 🇸🇰 斯洛伐克自动, 🇸🇱 塞拉利昂自动, 🇸🇲 圣马力诺自动, 🇸🇳 塞内加尔自动, 🇸🇴 索马里自动, 🇸🇷 苏里南自动, 🇸🇸 南苏丹自动, 🇸🇹 圣多美和普林西比自动, 🇸🇻 萨尔瓦多自动, 🇸🇽 荷属圣马丁自动, 🇸🇾 叙利亚自动, 🇸🇿 斯威士兰自动, 🇹🇨 特克斯和凯科斯群岛自动, 🇹🇩 乍得自动, 🇹🇬 多哥自动, 🇹🇭 泰国自动, 🇹🇯 塔吉克斯坦自动, 🇹🇰 托克劳自动, 🇹🇱 东帝汶自动, 🇹🇲 土库曼斯坦自动, 🇹🇳 突尼斯自动, 🇹🇴 汤加自动, 🇹🇷 土耳其自动, 🇹🇹 特立尼达和多巴哥自动, 🇹🇻 图瓦卢自动, 🇹🇼 台湾自动, 🇹🇿 坦桑尼亚自动, 🇺🇦 乌克兰自动, 🇺🇬 乌干达自动, 🇺🇸 美国自动, 🇺🇾 乌拉圭自动, 🇺🇿 乌兹别克斯坦自动, 🇻🇦 梵蒂冈自动, 🇻🇨 圣文森特和格林纳丁斯自动, 🇻🇪 委内瑞拉自动, 🇻🇬 英属维尔京群岛自动, 🇻🇮 美属维尔京群岛自动, 🇻🇳 越南自动, 🇻🇺 瓦努阿图自动, 🇼🇫 瓦利斯和富图纳自动, 🇼🇸 萨摩亚自动, 🇾🇪 也门自动, 🇾🇹 马约特自动, 🇿🇦 南非自动, 🇿🇲 赞比亚自动, 🇿🇼 津巴布韦自动 ] }
   - { tag: 🟢 手动选择, type: selector, interrupt_exist_connections: true, outbounds: [], filter: [ { action: all, keywords: [ "" ] } ] }

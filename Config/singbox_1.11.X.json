@@ -67,8 +67,8 @@
             },
             {
                 "rule_set": [
-                    "geosite-cn",
-                    "geosite-private"
+                    "cn_domain",
+                    "private_domain"
                 ],
                 "server": "DIRECT-DNS"
             },
@@ -177,14 +177,14 @@
         ],
         "rule_set": [
             {
-                "tag": "geosite-private",
+                "tag": "private_domain",
                 "type": "remote",
                 "url": "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs",
                 "format": "binary",
                 "download_detour": "🎯 全球直连"
             },
             {
-                "tag": "geosite-cn",
+                "tag": "cn_domain",
                 "type": "remote",
                 "url": "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
                 "format": "binary",

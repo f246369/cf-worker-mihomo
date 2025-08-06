@@ -169,7 +169,7 @@ dns:
   fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
-    - RULE-SET:Private,Fakeip_Filter,CN
+    - RULE-SET:private_domain,fakeip_filter_domain,cn_domain
     - dns.alidns.com
     - cloudflare-dns.com
     - dns.google
@@ -187,7 +187,7 @@ dns:
       - "quic://dns.nextdns.io#ecs=1.1.1.1/24&ecs-override=true" # NextDNS（香港） DNS over DOQ
     "+.eu":
       - "quic://dns0.eu#ecs=1.1.1.1/24&ecs-override=true" # 公共（欧洲） DNS over DOQ
-    "RULE-SET:Private,CN":
+    "RULE-SET:private_domain,cn_domain":
       # - "quic://dns.18bit.cn#ecs=114.114.114.114/24&ecs-override=true" # 18bit DNS over DOQ
       # - "quic://dns.ipv4dns.com#ecs=114.114.114.114/24&ecs-override=true" # 清新云 DNS over DOQ
       # - "quic://2025.dns1.top#ecs=114.114.114.114/24&ecs-override=true" # 关圣 DNS over DOQ
@@ -205,7 +205,7 @@ dns:
   direct-nameserver-follow-policy: true # 是否遵循 nameserver-policy，默认为不遵守，仅当 direct-nameserver 不为空时生效
 
 rule-providers:
-  CN:
+  cn_domain:
     type: http
     interval: 86400
     behavior: domain
@@ -213,7 +213,7 @@ rule-providers:
     proxy: DIRECT
     url: "https://cdn.jsdmirror.com/gh/Kwisma/clash-rules@release/direct.mrs"
     path: ./ruleset/China_Domain.mrs
-  Private:
+  private_domain:
     type: http
     interval: 86400
     behavior: domain
@@ -221,7 +221,7 @@ rule-providers:
     proxy: DIRECT
     url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs"
     path: ./ruleset/Private_Domain.mrs
-  Fakeip_Filter:
+  fakeip_filter_domain:
     type: http
     interval: 86400
     behavior: domain
