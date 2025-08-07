@@ -6,10 +6,10 @@ export default async function handler(req, res) {
     const e = {
         urls: url.searchParams.getAll('url'),
         userAgent: req.headers['user-agent'],
-        dns: url.searchParams.get('dns'),
+        dns: url.searchParams.get('dns') || '0',
         rule: url.searchParams.get('template'),
-        singbox: url.searchParams.get('singbox'),
-        udp: url.searchParams.get('udp'),
+        singbox: url.searchParams.get('singbox') || 'false',
+        udp: url.searchParams.get('udp') || 'true',
         IMG: (IMG = process.env.IMG || utils.backimg),
         sub: process.env.SUB || utils.subapi,
         Mihomo_default: process.env.MIHOMO || utils.mihomo_top,
