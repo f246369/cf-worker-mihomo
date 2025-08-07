@@ -8,10 +8,10 @@ export default {
         const e = {
             urls: url.searchParams.getAll('url'),
             userAgent: request.headers.get('User-Agent'),
-            dns: url.searchParams.get('dns') || '0',
+            dns: Number(url.searchParams.get('dns') || '0'),
             rule: url.searchParams.get('template'),
-            singbox: url.searchParams.get('singbox') || 'false',
-            udp: url.searchParams.get('udp') || 'true',
+            singbox: url.searchParams.get('singbox') === 'true',
+            udp: url.searchParams.get('udp') !== 'false',
             IMG: env.IMG || utils.backimg,
             sub: env.SUB || utils.subapi,
             Mihomo_default: env.MIHOMO || utils.mihomo_top,
@@ -24,6 +24,7 @@ export default {
             beianurl: env.BEIANURL || utils.beiandizi,
             configs: utils.configs()
         }
+
         if (e.urls.length === 1 && e.urls[0].includes(',')) {
             e.urls = e.urls[0].split(',').map((u) => u.trim()); // 拆分并去除空格
         }

@@ -10,7 +10,7 @@ export async function getmihomo_config(e) {
     Mihomo_Rule_Data.data.proxies = [...(Mihomo_Rule_Data?.data?.proxies || []), ...Mihomo_Proxies_Data?.data?.proxies];
     Mihomo_Rule_Data.data['proxy-groups'] = getMihomo_Proxies_Grouping(Mihomo_Proxies_Data.data, Mihomo_Rule_Data.data);
     Mihomo_Top_Data.data['proxy-providers'] = Mihomo_Proxies_Data?.data?.providers;
-    if (e.dns === '1') {
+    if (e.dns === 1) {
         Mihomo_Top_Data.data['dns'] = {
             enable: true,
             'cache-algorithm': 'arc',
