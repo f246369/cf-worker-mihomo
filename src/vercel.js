@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         rule: url.searchParams.get('template'),
         singbox: url.searchParams.get('singbox') || 'false',
         udp: url.searchParams.get('udp') || 'true',
-        IMG: (IMG = process.env.IMG || utils.backimg),
+        IMG: process.env.IMG || utils.backimg,
         sub: process.env.SUB || utils.subapi,
         Mihomo_default: process.env.MIHOMO || utils.mihomo_top,
         Singbox_default: {
