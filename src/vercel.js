@@ -47,7 +47,7 @@ export default async function handler(req, res) {
         if (singbox) {
             result = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
         } else {
-            result = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub.dns);
+            result = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub, dns);
         }
 
         const rawHeaders = result.headers || {};

@@ -11,7 +11,6 @@ export async function getmihomo_config(urls, rule, top, userAgent, subapi, dns =
     Mihomo_Rule_Data.data['proxy-groups'] = getMihomo_Proxies_Grouping(Mihomo_Proxies_Data.data, Mihomo_Rule_Data.data);
     Mihomo_Top_Data.data['proxy-providers'] = Mihomo_Proxies_Data?.data?.providers;
     if (dns === '1') {
-        console.log(dns, '启用 Mihomo DNS');
         Mihomo_Top_Data.data['dns'] = {
             enable: true,
             'cache-algorithm': 'arc',
