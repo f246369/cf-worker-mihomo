@@ -1,8 +1,5 @@
 import { fetchResponse, splitUrlsAndProxies, buildApiUrl, Top_Data, Rule_Data, udp } from './utils.js';
-export async function getmihomo_config(urls, rule, top, userAgent, subapi) {
-    if (!/meta|clash.meta|clash|clashverge|mihomo/i.test(userAgent)) {
-        throw new Error('不支持的客户端');
-    }
+export async function getmihomo_config(urls, rule, top, userAgent, subapi, dns = '0') {
     urls = splitUrlsAndProxies(urls);
     const [Mihomo_Top_Data, Mihomo_Rule_Data, Mihomo_Proxies_Data] = await Promise.all([
         Top_Data(top),
@@ -13,6 +10,46 @@ export async function getmihomo_config(urls, rule, top, userAgent, subapi) {
     Mihomo_Rule_Data.data.proxies = [...(Mihomo_Rule_Data?.data?.proxies || []), ...Mihomo_Proxies_Data?.data?.proxies];
     Mihomo_Rule_Data.data['proxy-groups'] = getMihomo_Proxies_Grouping(Mihomo_Proxies_Data.data, Mihomo_Rule_Data.data);
     Mihomo_Top_Data.data['proxy-providers'] = Mihomo_Proxies_Data?.data?.providers;
+    if (dns === '1') {
+        console.log(dns, '启用 Mihomo DNS');
+        Mihomo_Top_Data.data['dns'] = {
+            enable: true,
+            'cache-algorithm': 'arc',
+            'prefer-h3': true,
+            'use-hosts': true,
+            'use-system-hosts': true,
+            'respect-rules': false,
+            listen: '0.0.0.0:1053',
+            ipv6: true,
+            'default-nameserver': ['quic://223.5.5.5', 'quic://223.6.6.6'],
+            'enhanced-mode': 'fake-ip',
+            'fake-ip-range': '198.18.0.1/16',
+            'fake-ip-filter-mode': 'blacklist',
+            'fake-ip-filter': [
+                'RULE-SET:private_domain,fakeip_filter_domain,cn_domain',
+                'dns.alidns.com',
+                'cloudflare-dns.com',
+                'dns.google',
+                'dns.adguard-dns.com',
+                'dns.nextdns.io',
+                'public.dns.iij.jp',
+                'dns0.eu',
+                'dns.18bit.cn',
+                '2025.dns1.top',
+                'dns.ipv4dns.com',
+            ],
+            'nameserver-policy': {
+                '+.jp': ['https://public.dns.iij.jp/dns-query#h3=true&ecs=1.1.1.1/24&ecs-override=true'],
+                '+.hk': ['quic://dns.nextdns.io#ecs=1.1.1.1/24&ecs-override=true'],
+                '+.eu': ['quic://dns0.eu#ecs=1.1.1.1/24&ecs-override=true'],
+                'RULE-SET:private_domain,cn_domain': ['quic://dns.alidns.com#ecs=114.114.114.114/24&ecs-override=true'],
+            },
+            nameserver: ['https://dns.google/dns-query#h3=true&ecs=1.1.1.1/24&ecs-override=true'],
+            'proxy-server-nameserver': ['quic://dns.alidns.com#ecs=114.114.114.114/24&ecs-override=true'],
+            'direct-nameserver': ['quic://dns.alidns.com#ecs=114.114.114.114/24&ecs-override=true'],
+            'direct-nameserver-follow-policy': true,
+        };
+    }
     applyTemplate(Mihomo_Top_Data.data, Mihomo_Rule_Data.data);
     return {
         status: Mihomo_Proxies_Data.status,

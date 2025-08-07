@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const userAgent = req.headers['user-agent'];
     const rule = url.searchParams.get('template');
     const singbox = url.searchParams.get('singbox');
-
+    const dns = url.searchParams.get('dns');
     const IMG = process.env.IMG || backimg;
     const sub = process.env.SUB || subapi;
     const Mihomo_default = process.env.MIHOMO || mihomo_top;
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
         if (singbox) {
             result = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
         } else {
-            result = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub);
+            result = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub.dns);
         }
 
         const rawHeaders = result.headers || {};

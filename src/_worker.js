@@ -5,6 +5,7 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
         const userAgent = request.headers.get('User-Agent');
+        const dns = url.searchParams.get('dns');
         const rule = url.searchParams.get('template');
         const singbox = url.searchParams.get('singbox');
         const IMG = env.IMG || backimg;
@@ -48,7 +49,7 @@ export default {
             if (singbox) {
                 res = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
             } else {
-                res = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub);
+                res = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub,dns);
             }
             const responseHeaders = res.headers || {};
             headers = new Headers(responseHeaders);
