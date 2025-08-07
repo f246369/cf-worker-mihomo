@@ -8,6 +8,7 @@ export default {
         const dns = url.searchParams.get('dns');
         const rule = url.searchParams.get('template');
         const singbox = url.searchParams.get('singbox');
+        const udp = url.searchParams.get('udp');
         const IMG = env.IMG || backimg;
         const sub = env.SUB || subapi;
         const Mihomo_default = env.MIHOMO || mihomo_top;
@@ -49,7 +50,7 @@ export default {
             if (singbox) {
                 res = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
             } else {
-                res = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub,dns);
+                res = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub, dns, udp);
             }
             const responseHeaders = res.headers || {};
             headers = new Headers(responseHeaders);

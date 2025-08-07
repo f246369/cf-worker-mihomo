@@ -1,10 +1,10 @@
-import { fetchResponse, splitUrlsAndProxies, buildApiUrl, Top_Data, Rule_Data, udp } from './utils.js';
-export async function getmihomo_config(urls, rule, top, userAgent, subapi, dns = '0') {
+import { fetchResponse, splitUrlsAndProxies, buildApiUrl, Top_Data, Rule_Data } from './utils.js';
+export async function getmihomo_config(urls, rule, top, userAgent, subapi, dns = '0', udp = true) {
     urls = splitUrlsAndProxies(urls);
     const [Mihomo_Top_Data, Mihomo_Rule_Data, Mihomo_Proxies_Data] = await Promise.all([
         Top_Data(top),
         Rule_Data(rule),
-        getMihomo_Proxies_Data(urls, userAgent, subapi),
+        getMihomo_Proxies_Data(urls, userAgent, subapi, udp),
     ]);
     if (!Mihomo_Proxies_Data?.data?.proxies || Mihomo_Proxies_Data?.data?.proxies?.length === 0) throw new Error('节点为空');
     Mihomo_Rule_Data.data.proxies = [...(Mihomo_Rule_Data?.data?.proxies || []), ...Mihomo_Proxies_Data?.data?.proxies];
@@ -63,7 +63,7 @@ export async function getmihomo_config(urls, rule, top, userAgent, subapi, dns =
  * @param {string} userAgent - 请求头中的 User-Agent 字段
  * @returns {Promise<{status: number, headers: Object, data: any}>} - 包含状态码、响应头和 subscription-userinfo 字符串
  */
-export async function getMihomo_Proxies_Data(urls, userAgent, subapi) {
+export async function getMihomo_Proxies_Data(urls, userAgent, subapi, udp) {
     let res;
     if (urls.length === 1) {
         res = await fetchResponse(urls[0], userAgent);
