@@ -1,11 +1,11 @@
-import { splitUrlsAndProxies, Top_Data, Rule_Data, fetchResponse, buildApiUrl } from './utils.js';
-export async function getsingbox_config(urls, rule, top_default, userAgent, subapi) {
-    const top = Verbose(top_default, userAgent);
-    urls = splitUrlsAndProxies(urls);
+import * as utils from './utils.js';
+export async function getsingbox_config(e) {
+    const top = Verbose(e);
+    e.urls = utils.splitUrlsAndProxies(e.urls);
     const [Singbox_Top_Data, Singbox_Rule_Data, Singbox_Outbounds_Data] = await Promise.all([
-        Top_Data(top),
-        Rule_Data(rule),
-        getSingbox_Outbounds_Data(urls, subapi, userAgent),
+        utils.Top_Data(top),
+        utils.Rule_Data(e.rule),
+        getSingbox_Outbounds_Data(e),
     ]);
 
     if (
@@ -34,18 +34,19 @@ export async function getsingbox_config(urls, rule, top_default, userAgent, suba
         data: JSON.stringify(Singbox_Top_Data.data, null, 4),
     };
 }
-export function Verbose(top_default, userAgent) {
+
+export function Verbose(e) {
     let top,
         matched = false;
-    const alphaMatch = userAgent.match(/1\.12\.0\-alpha\.(\d{1,2})\b/);
-    const betaMatch = userAgent.match(/1\.12\.0\-beta\.(\d{1,2})\b/);
-    const v111Match = userAgent.match(/1\.11\.(\d+)/);
-    const v112Match = userAgent.match(/1\.12\.(\d+)/);
+    const alphaMatch = e.userAgent.match(/1\.12\.0\-alpha\.(\d{1,2})\b/);
+    const betaMatch = e.userAgent.match(/1\.12\.0\-beta\.(\d{1,2})\b/);
+    const v111Match = e.userAgent.match(/1\.11\.(\d+)/);
+    const v112Match = e.userAgent.match(/1\.12\.(\d+)/);
     // 匹配 1.12 alpha 版本
     if (alphaMatch && !matched) {
         const num = parseInt(alphaMatch[1], 10);
         if (num >= 0 && num <= 23) {
-            top = top_default.singbox_1_12_alpha;
+            top = e.Singbox_default.singbox_1_12_alpha;
             matched = true;
         }
     }
@@ -53,38 +54,33 @@ export function Verbose(top_default, userAgent) {
     if (betaMatch && !matched) {
         const num = parseInt(betaMatch[1], 10);
         if (num >= 0 && num <= 9) {
-            top = top_default.singbox_1_11;
+            top = e.Singbox_default.singbox_1_11;
             matched = true;
         }
     }
     // 匹配 1.11.x 版本
     if (v111Match && !matched) {
-        top = top_default.singbox_1_11;
+        top = e.Singbox_default.singbox_1_11;
         matched = true;
     }
     // 匹配 1.12.x 版本
     if (v112Match && !matched) {
-        top = top_default.singbox_1_12;
+        top = e.Singbox_default.singbox_1_12;
         matched = true;
     }
     if (!matched) {
-        throw new Error(`不支持的 Singbox 版本：${userAgent}`);
+        throw new Error(`不支持的 Singbox 版本：${e.userAgent}`);
     }
     return top;
 }
 /**
  * 加载多个配置 URL，对其 outbounds 进行合并处理。
  * 对第一个配置不添加 tag 后缀，其余的添加 `[序号]`。
- *
- * @param {string[]} urls - 配置地址数组
- * @param {string} sub - 用于构建备用 API 请求的参数
- * @param {string} userAgent - 用户代理字符串，用于请求头
- * @returns {Promise<Object>} 包含合并后的 outbounds、状态码与响应头
  */
-export async function getSingbox_Outbounds_Data(urls, subapi, userAgent) {
+export async function getSingbox_Outbounds_Data(e) {
     let res;
-    if (urls.length === 1) {
-        res = await fetchResponse(urls[0], userAgent);
+    if (e.urls.length === 1) {
+        res = await utils.fetchResponse(e.urls[0], e.userAgent);
         if (res?.data?.outbounds && Array.isArray(res?.data?.outbounds) && res?.data?.outbounds?.length > 0) {
             return {
                 status: res.status,
@@ -92,8 +88,8 @@ export async function getSingbox_Outbounds_Data(urls, subapi, userAgent) {
                 data: res.data,
             };
         } else {
-            const apiurl = buildApiUrl(urls[0], subapi, 'singbox');
-            res = await fetchResponse(apiurl, userAgent);
+            const apiurl = utils.buildApiUrl(e.urls[0], e.subapi, 'singbox');
+            res = await utils.fetchResponse(apiurl, e.userAgent);
             return {
                 status: res.status,
                 headers: res.headers,
@@ -104,8 +100,8 @@ export async function getSingbox_Outbounds_Data(urls, subapi, userAgent) {
         const outbounds_list = [];
         const hesList = [];
         let res;
-        for (let i = 0; i < urls.length; i++) {
-            res = await fetchResponse(urls[i], userAgent);
+        for (let i = 0; i < e.urls.length; i++) {
+            res = await utils.fetchResponse(e.urls[i], e.userAgent);
             if (res?.data && Array.isArray(res?.data?.outbounds)) {
                 res.data.outbounds.forEach((p) => {
                     p.tag = `${p.tag} [${i + 1}]`;
@@ -116,8 +112,8 @@ export async function getSingbox_Outbounds_Data(urls, subapi, userAgent) {
                 });
                 outbounds_list.push(res.data.outbounds);
             } else {
-                const apiurl = buildApiUrl(urls[i], subapi, 'singbox');
-                res = await fetchResponse(apiurl, userAgent);
+                const apiurl = utils.buildApiUrl(e.urls[i], e.subapi, 'singbox');
+                res = await utils.fetchResponse(apiurl, e.userAgent);
                 if (res?.data?.outbounds && Array.isArray(res?.data?.outbounds)) {
                     res.data.outbounds.forEach((p) => {
                         p.tag = `${p.tag} [${i + 1}]`;

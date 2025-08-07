@@ -1,44 +1,35 @@
 import { getmihomo_config } from './mihomo.js';
 import { getsingbox_config } from './singbox.js';
-import { getFakePage, backimg, subapi, mihomo_top, singbox_1_11, singbox_1_12, singbox_1_12_alpha, beiantext, beiandizi, configs } from './utils.js';
+import * as utils from './utils.js';
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
-        const userAgent = request.headers.get('User-Agent');
-        const dns = url.searchParams.get('dns');
-        const rule = url.searchParams.get('template');
-        const singbox = url.searchParams.get('singbox');
-        const udp = url.searchParams.get('udp');
-        const IMG = env.IMG || backimg;
-        const sub = env.SUB || subapi;
-        const Mihomo_default = env.MIHOMO || mihomo_top;
-        const Singbox_default = {
-            singbox_1_11: env.SINGBOX_1_11 || singbox_1_11,
-            singbox_1_12: env.SINGBOX_1_12 || singbox_1_12,
-            singbox_1_12_alpha: env.SINGBOX_1_12_ALPHA || singbox_1_12_alpha,
-        };
-        const beian = env.BEIAN || beiantext;
-        const beianurl = env.BEIANURL || beiandizi;
-        const variable = {
-            userAgent,
-            rule,
-            singbox,
-            IMG,
-            sub,
-            Mihomo_default,
-            Singbox_default,
-            beian,
-            beianurl,
-        };
-        // 处理 URL 参数
-        let urls = url.searchParams.getAll('url');
 
-        if (urls.length === 1 && urls[0].includes(',')) {
-            urls = urls[0].split(',').map((u) => u.trim()); // 拆分并去除空格
+        const e = {
+            urls: url.searchParams.getAll('url'),
+            userAgent: request.headers.get('User-Agent'),
+            dns: url.searchParams.get('dns'),
+            rule: url.searchParams.get('template'),
+            singbox: url.searchParams.get('singbox'),
+            udp: url.searchParams.get('udp'),
+            IMG: env.IMG || utils.backimg,
+            sub: env.SUB || utils.subapi,
+            Mihomo_default: env.MIHOMO || utils.mihomo_top,
+            Singbox_default: {
+                singbox_1_11: env.SINGBOX_1_11 || utils.singbox_1_11,
+                singbox_1_12: env.SINGBOX_1_12 || utils.singbox_1_12,
+                singbox_1_12_alpha: env.SINGBOX_1_12_ALPHA || utils.singbox_1_12_alpha,
+            },
+            beian: env.BEIAN || utils.beiantext,
+            beianurl: env.BEIANURL || utils.beiandizi,
+            configs: utils.configs()
+        }
+        if (e.urls.length === 1 && e.urls[0].includes(',')) {
+            e.urls = e.urls[0].split(',').map((u) => u.trim()); // 拆分并去除空格
         }
 
-        if (urls.length === 0 || urls[0] === '') {
-            return new Response(await getFakePage(variable, configs()), {
+        if (e.urls.length === 0 || e.urls[0] === '') {
+            return new Response(await utils.getFakePage(e), {
                 status: 200,
                 headers: {
                     'Content-Type': 'text/html; charset=utf-8',
@@ -47,16 +38,17 @@ export default {
         }
         try {
             let res, headers, status;
-            if (singbox) {
-                res = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
+            if (e.singbox) {
+                res = await getsingbox_config(e);
             } else {
-                res = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub, dns, udp);
+                res = await getmihomo_config(e);
             }
             const responseHeaders = res.headers || {};
             headers = new Headers(responseHeaders);
             status = res.status;
             headers.set('Content-Type', 'application/json; charset=utf-8');
             headers.set('Profile-web-page-url', url.origin);
+
             return new Response(res.data, {
                 status,
                 headers,

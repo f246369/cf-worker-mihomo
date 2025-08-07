@@ -108,7 +108,7 @@ export async function Rule_Data(rule) {
 }
 
 // 获取伪装页面
-export async function getFakePage(variable, configdata) {
+export async function getFakePage(e) {
     return `
 <!DOCTYPE html>
 <html>
@@ -133,7 +133,7 @@ export async function getFakePage(variable, configdata) {
         }
 
         body {
-            background-image: url(${variable.IMG});
+            background-image: url(${e.IMG});
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -666,7 +666,7 @@ export async function getFakePage(variable, configdata) {
             <label id="qrcode" style="margin: 15px 10px -15px 10px;"></label>
         </div>
         <div class="beian-info" style="text-align: center; font-size: 13px;">
-            <a href='${variable.beianurl}'>${variable.beian}</a>
+            <a href='${e.beianurl}'>${e.beian}</a>
         </div>
     </div>
 
@@ -766,11 +766,11 @@ export async function getFakePage(variable, configdata) {
 
 ## 配置信息
 
-**userAgent** ${variable.userAgent}
+**userAgent** ${e.userAgent}
 
-**转换后端** ${variable.sub}
+**转换后端** ${e.sub}
 
-**默认** ${variable.Mihomo_default}
+**默认** ${e.Mihomo_default}
                 \`,
                 singbox: \`
 ## singbox 使用提示：
@@ -785,15 +785,15 @@ export async function getFakePage(variable, configdata) {
 
 ## 配置信息
 
-**userAgent** ${variable.userAgent}
+**userAgent** ${e.userAgent}
 
-**转换后端** ${variable.sub}
+**转换后端** ${e.sub}
 
-**1.11** ${variable.Singbox_default.singbox_1_11}
+**1.11** ${e.Singbox_default.singbox_1_11}
 
-**1.12** ${variable.Singbox_default.singbox_1_12}
+**1.12** ${e.Singbox_default.singbox_1_12}
 
-**1.12_alpha** ${variable.Singbox_default.singbox_1_12_alpha}
+**1.12_alpha** ${e.Singbox_default.singbox_1_12_alpha}
                 \`
             };
             // 弹窗提示
@@ -853,7 +853,7 @@ export async function getFakePage(variable, configdata) {
             const selectorClass = mode === 'singbox' ? '.singbox-options .template-selector' : '.mihomo-options .template-selector';
             const templateToggle = document.querySelector(\`\${selectorClass} .template-toggle\`);
             const optionsContainer = document.querySelector(\`\${selectorClass} .template-options\`);
-            const configs = ${configdata}
+            const configs = ${e.configs}
             // 生成所有模板选项
             configs[mode].forEach(group => {
                 // 添加分组标签
@@ -1115,10 +1115,10 @@ export function configs() {
                         label: '默认(精简版) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default.yaml',
                     },
-                    // {
-                    //     label: '默认(mini版)[geo_ads] (与Github同步) ',
-                    //     value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_mini.yaml',
-                    // },
+                    {
+                        label: '默认(mini版) (与Github同步) ',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_mini.yaml',
+                    },
                     {
                         label: '默认(全分组) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_full.yaml',

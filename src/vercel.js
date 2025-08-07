@@ -1,42 +1,33 @@
-import { getFakePage, configs, backimg, subapi, mihomo_top, singbox_1_11, singbox_1_12, singbox_1_12_alpha, beiantext, beiandizi } from './utils.js';
 import { getmihomo_config } from './mihomo.js';
 import { getsingbox_config } from './singbox.js';
-
+import * as utils from './utils.js';
 export default async function handler(req, res) {
     const url = new URL(req.url, `http://${req.headers.host}`);
-    const userAgent = req.headers['user-agent'];
-    const rule = url.searchParams.get('template');
-    const singbox = url.searchParams.get('singbox');
-    const dns = url.searchParams.get('dns');
-    const udp = url.searchParams.get('udp');
-    const IMG = process.env.IMG || backimg;
-    const sub = process.env.SUB || subapi;
-    const Mihomo_default = process.env.MIHOMO || mihomo_top;
-    const Singbox_default = {
-        singbox_1_11: process.env.SINGBOX_1_11 || singbox_1_11,
-        singbox_1_12: process.env.SINGBOX_1_12 || singbox_1_12,
-        singbox_1_12_alpha: process.env.SINGBOX_1_12_ALPHA || singbox_1_12_alpha,
+    const e = {
+        urls: url.searchParams.getAll('url'),
+        userAgent: req.headers['user-agent'],
+        dns: url.searchParams.get('dns'),
+        rule: url.searchParams.get('template'),
+        singbox: url.searchParams.get('singbox'),
+        udp: url.searchParams.get('udp'),
+        IMG: (IMG = process.env.IMG || utils.backimg),
+        sub: process.env.SUB || utils.subapi,
+        Mihomo_default: process.env.MIHOMO || utils.mihomo_top,
+        Singbox_default: {
+            singbox_1_11: process.env.SINGBOX_1_11 || utils.singbox_1_11,
+            singbox_1_12: process.env.SINGBOX_1_12 || utils.singbox_1_12,
+            singbox_1_12_alpha: process.env.SINGBOX_1_12_ALPHA || utils.singbox_1_12_alpha,
+        },
+        beian: process.env.BEIAN || utils.beiantext,
+        beianurl: process.env.BEIANURL || utils.beiandizi,
+        configs: utils.configs(),
     };
-    const beian = process.env.BEIAN || beiantext;
-    const beianurl = process.env.BEIANURL || beiandizi;
-
-    const variable = {
-        userAgent,
-        IMG,
-        sub,
-        Mihomo_default,
-        Singbox_default,
-        beian,
-        beianurl,
-    };
-
-    let urls = url.searchParams.getAll('url');
-    if (urls.length === 1 && urls[0].includes(',')) {
-        urls = urls[0].split(',').map((u) => u.trim());
+    if (e.urls.length === 1 && e.urls[0].includes(',')) {
+        e.urls = e.urls[0].split(',').map((u) => u.trim());
     }
 
-    if (urls.length === 0 || urls[0] === '') {
-        const html = await getFakePage(variable, configs());
+    if (e.urls.length === 0 || e.urls[0] === '') {
+        const html = await utils.getFakePage(e);
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
         res.statusCode = 200;
         res.end(html);
@@ -45,10 +36,10 @@ export default async function handler(req, res) {
 
     try {
         let result;
-        if (singbox) {
-            result = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
+        if (e.singbox) {
+            result = await getsingbox_config(e);
         } else {
-            result = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub, dns, udp);
+            result = await getmihomo_config(e);
         }
 
         const rawHeaders = result.headers || {};
