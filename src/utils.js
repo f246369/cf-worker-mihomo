@@ -789,11 +789,11 @@ export async function getFakePage(e) {
 
 **转换后端** ${e.sub}
 
-**1.11** ${e.Singbox_default.singbox_1_11}
+**1.11** ${e.singbox_1_11}
 
-**1.12** ${e.Singbox_default.singbox_1_12}
+**1.12** ${e.singbox_1_12}
 
-**1.12_alpha** ${e.Singbox_default.singbox_1_12_alpha}
+**1.12_alpha** ${e.singbox_1_12_alpha}
                 \`
             };
             // 弹窗提示

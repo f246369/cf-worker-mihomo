@@ -46,7 +46,7 @@ export function Verbose(e) {
     if (alphaMatch && !matched) {
         const num = parseInt(alphaMatch[1], 10);
         if (num >= 0 && num <= 23) {
-            top = e.Singbox_default.singbox_1_12_alpha;
+            top = e.singbox_1_12_alpha;
             matched = true;
         }
     }
@@ -54,18 +54,18 @@ export function Verbose(e) {
     if (betaMatch && !matched) {
         const num = parseInt(betaMatch[1], 10);
         if (num >= 0 && num <= 9) {
-            top = e.Singbox_default.singbox_1_11;
+            top = e.singbox_1_11;
             matched = true;
         }
     }
     // 匹配 1.11.x 版本
     if (v111Match && !matched) {
-        top = e.Singbox_default.singbox_1_11;
+        top = e.singbox_1_11;
         matched = true;
     }
     // 匹配 1.12.x 版本
     if (v112Match && !matched) {
-        top = e.Singbox_default.singbox_1_12;
+        top = e.singbox_1_12;
         matched = true;
     }
     if (!matched) {

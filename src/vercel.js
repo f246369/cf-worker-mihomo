@@ -4,20 +4,19 @@ import * as utils from './utils.js';
 export default async function handler(req, res) {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const e = {
+        url,
         urls: url.searchParams.getAll('url'),
         userAgent: req.headers['user-agent'],
-        dns: Number(url.searchParams.get('dns') || '0'),
         rule: url.searchParams.get('template'),
         singbox: url.searchParams.get('singbox') === 'true',
+        mihomo: url.searchParams.get('mihomo') === 'true',
         udp: url.searchParams.get('udp') !== 'false',
         IMG: process.env.IMG || utils.backimg,
         sub: process.env.SUB || utils.subapi,
         Mihomo_default: process.env.MIHOMO || utils.mihomo_top,
-        Singbox_default: {
-            singbox_1_11: process.env.SINGBOX_1_11 || utils.singbox_1_11,
-            singbox_1_12: process.env.SINGBOX_1_12 || utils.singbox_1_12,
-            singbox_1_12_alpha: process.env.SINGBOX_1_12_ALPHA || utils.singbox_1_12_alpha,
-        },
+        singbox_1_11: process.env.SINGBOX_1_11 || utils.singbox_1_11,
+        singbox_1_12: process.env.SINGBOX_1_12 || utils.singbox_1_12,
+        singbox_1_12_alpha: process.env.SINGBOX_1_12_ALPHA || utils.singbox_1_12_alpha,
         beian: process.env.BEIAN || utils.beiantext,
         beianurl: process.env.BEIANURL || utils.beiandizi,
         configs: utils.configs(),
@@ -42,7 +41,7 @@ export default async function handler(req, res) {
             result = await getmihomo_config(e);
         }
 
-        const rawHeaders = result.headers || {};
+        const rawHeaders = result.headers;
         const headersToIgnore = ['transfer-encoding', 'content-length', 'content-encoding', 'connection'];
 
         for (const [key, value] of Object.entries(rawHeaders)) {

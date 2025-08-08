@@ -4,22 +4,20 @@ import * as utils from './utils.js';
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
-
         const e = {
+            url,
             urls: url.searchParams.getAll('url'),
             userAgent: request.headers.get('User-Agent'),
-            dns: Number(url.searchParams.get('dns') || '0'),
             rule: url.searchParams.get('template'),
             singbox: url.searchParams.get('singbox') === 'true',
+            mihomo: url.searchParams.get('mihomo') === 'true',
             udp: url.searchParams.get('udp') !== 'false',
             IMG: env.IMG || utils.backimg,
             sub: env.SUB || utils.subapi,
             Mihomo_default: env.MIHOMO || utils.mihomo_top,
-            Singbox_default: {
-                singbox_1_11: env.SINGBOX_1_11 || utils.singbox_1_11,
-                singbox_1_12: env.SINGBOX_1_12 || utils.singbox_1_12,
-                singbox_1_12_alpha: env.SINGBOX_1_12_ALPHA || utils.singbox_1_12_alpha,
-            },
+            singbox_1_11: env.SINGBOX_1_11 || utils.singbox_1_11,
+            singbox_1_12: env.SINGBOX_1_12 || utils.singbox_1_12,
+            singbox_1_12_alpha: env.SINGBOX_1_12_ALPHA || utils.singbox_1_12_alpha,
             beian: env.BEIAN || utils.beiantext,
             beianurl: env.BEIANURL || utils.beiandizi,
             configs: utils.configs()
@@ -44,7 +42,7 @@ export default {
             } else {
                 res = await getmihomo_config(e);
             }
-            const responseHeaders = res.headers || {};
+            const responseHeaders = res.headers;
             headers = new Headers(responseHeaders);
             status = res.status;
             headers.set('Content-Type', 'application/json; charset=utf-8');
