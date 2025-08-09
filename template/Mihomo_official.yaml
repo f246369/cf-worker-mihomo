@@ -18,18 +18,18 @@ proxy-groups:
   - { name: ♻️自动选择, <<: *u, tolerance: 1, type: url-test }
   - { name: ⚡️均衡负载, <<: *u, strategy: round-robin, type: load-balance }
   - { name: 🔯故障转移, <<: *u, type: fallback }
-  - { name: Google, <<: *proxy }
-  - { name: Telegram, <<: *proxy }
-  - { name: Twitter, <<: *proxy }
-  - { name: 哔哩哔哩, <<: *direct }
-  - { name: 哔哩哔哩国际版, <<: *proxy }
-  - { name: Ehentai, <<: *proxy }
-  - { name: 巴哈姆特, <<: *proxy }
-  - { name: YouTube, <<: *proxy }
-  - { name: NETFLIX, <<: *proxy }
-  - { name: Spotify, <<: *proxy }
-  - { name: Github, <<: *proxy }
-  - { name: Pixiv, <<: *proxy }
+  - { name: Google, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/Google.webp }
+  - { name: Telegram, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/Telegram.webp }
+  - { name: Twitter, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/Twitter.webp }
+  - { name: 哔哩哔哩, <<: *direct, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/BiliBili.webp }
+  - { name: 哔哩哔哩国际版, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/Biliintl.webp }
+  - { name: Ehentai, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/E-Hentai.webp }
+  - { name: 巴哈姆特, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/Bahamut.webp }
+  - { name: YouTube, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/YouTube.webp }
+  - { name: NETFLIX, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/Netflix.webp }
+  - { name: Spotify, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/Spotify.webp }
+  - { name: Github, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/GitHub.webp }
+  - { name: Pixiv, <<: *proxy, icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/Pixiv.webp }
   ############ 全国家分组自动选择 ############
   - { name: 🇺🇸美国自动, <<: *u, hidden: true, filter: '(?i)🇺🇸|\\bUS\\b|美国|United States|\\bCT\\b|UnitedStates' }
   - { name: 🇧🇷巴西自动, <<: *u, hidden: true, filter: '(?i)🇧🇷|\\bBR\\b|巴西|Brazil' }
