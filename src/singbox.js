@@ -88,7 +88,7 @@ export async function getSingbox_Outbounds_Data(e) {
                 data: res.data,
             };
         } else {
-            const apiurl = utils.buildApiUrl(e.urls[0], e.subapi, 'singbox');
+            const apiurl = utils.buildApiUrl(e.urls[0], e.sub, 'singbox');
             res = await utils.fetchResponse(apiurl, e.userAgent);
             return {
                 status: res.status,
@@ -112,7 +112,7 @@ export async function getSingbox_Outbounds_Data(e) {
                 });
                 outbounds_list.push(res.data.outbounds);
             } else {
-                const apiurl = utils.buildApiUrl(e.urls[i], e.subapi, 'singbox');
+                const apiurl = utils.buildApiUrl(e.urls[i], e.sub, 'singbox');
                 res = await utils.fetchResponse(apiurl, e.userAgent);
                 if (res?.data?.outbounds && Array.isArray(res?.data?.outbounds)) {
                     res.data.outbounds.forEach((p) => {

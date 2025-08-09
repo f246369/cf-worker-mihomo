@@ -38,7 +38,7 @@ export async function getMihomo_Proxies_Data(e) {
                 },
             };
         } else {
-            const apiurl = utils.buildApiUrl(e.urls[0], e.subapi, 'clash');
+            const apiurl = utils.buildApiUrl(e.urls[0], e.sub, 'clash');
             res = await utils.fetchResponse(apiurl, e.userAgent);
             if (res?.data?.proxies && Array.isArray(res?.data?.proxies) && res?.data?.proxies?.length > 0) {
                 res.data.proxies.forEach((p) => {
@@ -73,7 +73,7 @@ export async function getMihomo_Proxies_Data(e) {
                 });
                 data.proxies.push(...res.data.proxies);
             } else {
-                const apiurl = utils.buildApiUrl(e.urls[i], e.subapi, 'clash');
+                const apiurl = utils.buildApiUrl(e.urls[i], e.sub, 'clash');
                 res = await utils.fetchResponse(apiurl, e.userAgent);
                 if (res?.data?.proxies && Array.isArray(res?.data?.proxies)) {
                     res.data.proxies.forEach((p) => {
