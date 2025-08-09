@@ -1014,6 +1014,14 @@ export function configs() {
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_official_NoAds.yaml',
                     },
                     {
+                        label: '默认(ACL4SSR_Online_Full) (与Github同步)',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_ACL4SSR_Online_Full.yaml',
+                    },
+                    {
+                        label: '默认(ACL4SSR_Online_Full) (无去广告Mihomo_ACL4SSR_Online_Full_NoAds.yaml) (与Github同步)',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_ACL4SSR_Online_Full_NoAds.yaml',
+                    },
+                    {
                         label: '默认(全分组) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full.yaml',
                     },
@@ -1058,14 +1066,6 @@ export function configs() {
                     {
                         label: '布丁狗的订阅转换 (与Github同步)',
                         value: 'https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/%E5%B8%83%E4%B8%81%E7%8B%97%E7%9A%84%E8%AE%A2%E9%98%85%E8%BD%AC%E6%8D%A2.yaml',
-                    },
-                    {
-                        label: 'ACL4SSR_Online_Full 全分组版 (与Github同步)',
-                        value: 'https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/ACL4SSR_Online_Full.yaml',
-                    },
-                    {
-                        label: 'ACL4SSR_Online_Full_WithIcon 全分组版 (与Github同步) (无图标)',
-                        value: 'https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/ACL4SSR_Online_Full_WithIcon.yaml',
                     },
                 ],
             },

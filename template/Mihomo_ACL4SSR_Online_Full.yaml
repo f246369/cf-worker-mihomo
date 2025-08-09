@@ -1,0 +1,447 @@
+u: &u { type: url-test, tolerance: 1, strategy: consistent-hashing, url: https://www.gstatic.com/generate_204, interval: 300, lazy: true, timeout: 5000, max-failed-times: 5, include-all: true }
+domain_mrs: &domain_mrs { type: http, interval: 86400, behavior: domain, format: mrs, proxy: 🎯全球直连 }
+ipcidr_mrs: &ipcidr_mrs { type: http, interval: 86400, behavior: ipcidr, format: mrs, proxy: 🎯全球直连 }
+
+proxy-groups:
+  - { name: 🚀全球代理, type: select, proxies: [♻️自动选择, 🟢手动选择, ⚡️均衡负载, 🔯故障转移, 🎯全局直连, 🇦🇩安道尔自动, 🇦🇪阿联酋自动, 🇦🇫阿富汗自动, 🇦🇬安提瓜和巴布达自动, 🇦🇮安圭拉自动, 🇦🇱阿尔巴尼亚自动, 🇦🇲亚美尼亚自动, 🇦🇴安哥拉自动, 🇦🇷阿根廷自动, 🇦🇸美属萨摩亚自动, 🇦🇹奥地利自动, 🇦🇺澳大利亚自动, 🇦🇼阿鲁巴自动, 🇦🇽奥兰群岛自动, 🇦🇿阿塞拜疆自动, 🇧🇦波斯尼亚和黑塞哥维那自动, 🇧🇧巴巴多斯自动, 🇧🇩孟加拉国自动, 🇧🇪比利时自动, 🇧🇫布基纳法索自动, 🇧🇬保加利亚自动, 🇧🇭巴林自动, 🇧🇮布隆迪自动, 🇧🇯贝宁自动, 🇧🇱法属圣巴泰勒米自动, 🇧🇲百慕大自动, 🇧🇳文莱达鲁萨兰国自动, 🇧🇴玻利维亚自动, 🇧🇶博内尔、圣尤斯特歇斯和萨巴自动, 🇧🇷巴西自动, 🇧🇸巴哈马自动, 🇧🇹不丹自动, 🇧🇼博茨瓦纳自动, 🇧🇾白俄罗斯自动, 🇧🇿伯利兹自动, 🇨🇦加拿大自动, 🇨🇩刚果民主共和国自动, 🇨🇫中非共和国自动, 🇨🇬刚果自动, 🇨🇭瑞士自动, 🇨🇮科特迪瓦自动, 🇨🇰库克群岛自动, 🇨🇱智利自动, 🇨🇲喀麦隆自动, 🇨🇳中国自动, 🇨🇴哥伦比亚自动, 🇨🇷哥斯达黎加自动, 🇨🇺古巴自动, 🇨🇻佛得角自动, 🇨🇼库拉索自动, 🇨🇾塞浦路斯自动, 🇨🇿捷克自动, 🇩🇪德国自动, 🇩🇯吉布提自动, 🇩🇰丹麦自动, 🇩🇲多米尼克自动, 🇩🇴多米尼加共和国自动, 🇩🇿阿尔及利亚自动, 🇪🇨厄瓜多尔自动, 🇪🇪爱沙尼亚自动, 🇪🇬埃及自动, 🇪🇷厄立特里亚自动, 🇪🇸西班牙自动, 🇪🇹埃塞俄比亚自动, 🇪🇺欧洲联盟自动, 🇫🇮芬兰自动, 🇫🇯斐济自动, 🇫🇰福克兰群岛自动, 🇫🇲密克罗尼西亚联邦自动, 🇫🇴法罗群岛自动, 🇫🇷法国自动, 🇬🇦加蓬自动, 🇬🇧英国自动, 🇬🇩格林纳达自动, 🇬🇪格鲁吉亚自动, 🇬🇫法属圭亚那自动, 🇬🇬格恩西岛自动, 🇬🇭加纳自动, 🇬🇮直布罗陀自动, 🇬🇱格陵兰自动, 🇬🇲冈比亚自动, 🇬🇳几内亚自动, 🇬🇵瓜德罗普自动, 🇬🇶赤道几内亚自动, 🇬🇷希腊自动, 🇬🇹危地马拉自动, 🇬🇺关岛自动, 🇬🇼几内亚比绍自动, 🇬🇾圭亚那自动, 🇭🇰香港自动, 🇭🇳洪都拉斯自动, 🇭🇷克罗地亚自动, 🇭🇹海地自动, 🇭🇺匈牙利自动, 🇮🇩印度尼西亚自动, 🇮🇪爱尔兰自动, 🇮🇱以色列自动, 🇮🇲曼岛自动, 🇮🇳印度自动, 🇮🇴英属印度洋领地自动, 🇮🇶伊拉克自动, 🇮🇷伊朗自动, 🇮🇸冰岛自动, 🇮🇹意大利自动, 🇯🇪泽西岛自动, 🇯🇲牙买加自动, 🇯🇴约旦自动, 🇯🇵日本自动, 🇰🇪肯尼亚自动, 🇰🇬吉尔吉斯斯坦自动, 🇰🇭柬埔寨自动, 🇰🇮基里巴斯自动, 🇰🇲科摩罗自动, 🇰🇳圣基茨和尼维斯自动, 🇰🇵朝鲜自动, 🇰🇷韩国自动, 🇰🇼科威特自动, 🇰🇾开曼群岛自动, 🇰🇿哈萨克斯坦自动, 🇱🇦老挝自动, 🇱🇧黎巴嫩自动, 🇱🇨圣卢西亚自动, 🇱🇮列支敦士登自动, 🇱🇰斯里兰卡自动, 🇱🇷利比里亚自动, 🇱🇸莱索托自动, 🇱🇹立陶宛自动, 🇱🇺卢森堡自动, 🇱🇻拉脱维亚自动, 🇱🇾利比亚自动, 🇲🇦摩洛哥自动, 🇲🇨摩纳哥自动, 🇲🇩摩尔多瓦自动, 🇲🇪黑山自动, 🇲🇫圣马丁（法属）自动, 🇲🇬马达加斯加自动, 🇲🇭马绍尔群岛自动, 🇲🇰北马其顿自动, 🇲🇱马里自动, 🇲🇲缅甸自动, 🇲🇳蒙古自动, 🇲🇴澳门自动, 🇲🇵北马里亚纳群岛自动, 🇲🇶马提尼克自动, 🇲🇷毛里塔尼亚自动, 🇲🇸蒙特塞拉特自动, 🇲🇹马耳他自动, 🇲🇺毛里求斯自动, 🇲🇻马尔代夫自动, 🇲🇼马拉维自动, 🇲🇽墨西哥自动, 🇲🇾马来西亚自动, 🇲🇿莫桑比克自动, 🇳🇦纳米比亚自动, 🇳🇨新喀里多尼亚自动, 🇳🇪尼日尔自动, 🇳🇫诺福克岛自动, 🇳🇬尼日利亚自动, 🇳🇮尼加拉瓜自动, 🇳🇱荷兰自动, 🇳🇴挪威自动, 🇳🇵尼泊尔自动, 🇳🇷瑙鲁自动, 🇳🇺纽埃自动, 🇳🇿新西兰自动, 🇴🇲阿曼自动, 🇵🇦巴拿马自动, 🇵🇪秘鲁自动, 🇵🇫法属波利尼西亚自动, 🇵🇬巴布亚新几内亚自动, 🇵🇭菲律宾自动, 🇵🇰巴基斯坦自动, 🇵🇱波兰自动, 🇵🇲圣皮埃尔和密克隆自动, 🇵🇷波多黎各自动, 🇵🇸巴勒斯坦自动, 🇵🇹葡萄牙自动, 🇵🇼帕劳自动, 🇵🇾巴拉圭自动, 🇶🇦卡塔尔自动, 🇷🇪留尼汪自动, 🇷🇴罗马尼亚自动, 🇷🇸塞尔维亚自动, 🇷🇺俄罗斯自动, 🇷🇼卢旺达自动, 🇸🇦沙特阿拉伯自动, 🇸🇧所罗门群岛自动, 🇸🇨塞舌尔自动, 🇸🇩苏丹自动, 🇸🇪瑞典自动, 🇸🇬新加坡自动, 🇸🇮斯洛文尼亚自动, 🇸🇰斯洛伐克自动, 🇸🇱塞拉利昂自动, 🇸🇲圣马力诺自动, 🇸🇳塞内加尔自动, 🇸🇴索马里自动, 🇸🇷苏里南自动, 🇸🇸南苏丹自动, 🇸🇹圣多美和普林西比自动, 🇸🇻萨尔瓦多自动, 🇸🇽荷属圣马丁自动, 🇸🇾叙利亚自动, 🇸🇿斯威士兰自动, 🇹🇨特克斯和凯科斯群岛自动, 🇹🇩乍得自动, 🇹🇬多哥自动, 🇹🇭泰国自动, 🇹🇯塔吉克斯坦自动, 🇹🇰托克劳自动, 🇹🇱东帝汶自动, 🇹🇲土库曼斯坦自动, 🇹🇳突尼斯自动, 🇹🇴汤加自动, 🇹🇷土耳其自动, 🇹🇹特立尼达和多巴哥自动, 🇹🇻图瓦卢自动, 🇹🇼台湾自动, 🇹🇿坦桑尼亚自动, 🇺🇦乌克兰自动, 🇺🇬乌干达自动, 🇺🇸美国自动, 🇺🇾乌拉圭自动, 🇺🇿乌兹别克斯坦自动, 🇻🇦梵蒂冈自动, 🇻🇨圣文森特和格林纳丁斯自动, 🇻🇪委内瑞拉自动, 🇻🇬英属维尔京群岛自动, 🇻🇮美属维尔京群岛自动, 🇻🇳越南自动, 🇻🇺瓦努阿图自动, 🇼🇫瓦利斯和富图纳自动, 🇼🇸萨摩亚自动, 🇾🇪也门自动, 🇾🇹马约特自动, 🇿🇦南非自动, 🇿🇲赞比亚自动, 🇿🇼津巴布韦自动] }
+  - { name: 🟢手动选择, <<: *u, type: select }
+  - { name: 🎯全局直连, type: select, hidden: true, proxies: [DIRECT] }
+  - { name: 🚫拒绝连接, type: select, hidden: true, proxies: [REJECT] }
+  - { name: 🚫静默拒绝, type: select, hidden: true, proxies: [REJECT-DROP] }
+  - { name: ⚪绕过连接, type: select, hidden: true, proxies: [PASS] }
+  - { name: 🪧广告拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+  - { name: 🔎HttpDNS, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+  - { name: 💧泄漏拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+  - { name: 🎯全球直连, type: select, proxies: [🎯全局直连, 🚀全球代理, 🟢手动选择, ♻️自动选择] }
+  - { name: ♻️自动选择, <<: *u, tolerance: 1, type: url-test }
+  - { name: ⚡️均衡负载, <<: *u, strategy: round-robin, type: load-balance }
+  - { name: 🔯故障转移, <<: *u, type: fallback }
+  - { name: 📲 电报消息, <<: *proxy }
+  - { name: 💬 OpenAi, <<: *proxy }
+  - { name: 📹 油管视频, <<: *proxy }
+  - { name: 🎥 奈飞视频, <<: *proxy }
+  - { name: 📺 巴哈姆特, <<: *proxy }
+  - { name: 📺 哔哩哔哩东南亚, <<: *proxy }
+  - { name: 📺 哔哩哔哩, <<: *proxy }
+  - { name: 🌍 国外媒体, <<: *proxy }
+  - { name: 🌏 国内媒体, <<: *proxy }
+  - { name: 📢 谷歌FCM, <<: *proxy }
+  - { name: Ⓜ️ 微软Bing, <<: *proxy }
+  - { name: Ⓜ️ 微软云盘, <<: *proxy }
+  - { name: Ⓜ️ 微软服务, <<: *proxy }
+  - { name: 🍎 苹果服务, <<: *proxy }
+  - { name: 🎮 游戏平台, <<: *proxy }
+  - { name: 🎶 网易音乐, <<: *proxy }
+  ############ 全国家分组自动选择 ############
+  - { name: 🇺🇸美国自动, <<: *u, hidden: true, filter: '(?i)🇺🇸|\\bUS\\b|美国|United States|\\bCT\\b|UnitedStates' }
+  - { name: 🇧🇷巴西自动, <<: *u, hidden: true, filter: '(?i)🇧🇷|\\bBR\\b|巴西|Brazil' }
+  - { name: 🇨🇳中国自动, <<: *u, hidden: true, filter: '(?i)🇨🇳|\\bCN\\b|中国|China' }
+  - { name: 🇷🇺俄罗斯自动, <<: *u, hidden: true, filter: '(?i)🇷🇺|\\bRU\\b|俄罗斯|Russian Federation|RussianFederation' }
+  - { name: 🇮🇳印度自动, <<: *u, hidden: true, filter: '(?i)🇮🇳|\\bIN\\b|印度|India' }
+  - { name: 🇬🇧英国自动, <<: *u, hidden: true, filter: '(?i)🇬🇧|\\bGB\\b|英国|United Kingdom|\\bUK\\b|UnitedKingdom' }
+  - { name: 🇮🇩印度尼西亚自动, <<: *u, hidden: true, filter: '(?i)🇮🇩|\\bID\\b|印度尼西亚|Indonesia' }
+  - { name: 🇩🇪德国自动, <<: *u, hidden: true, filter: '(?i)🇩🇪|\\bDE\\b|德国|Germany' }
+  - { name: 🇦🇺澳大利亚自动, <<: *u, hidden: true, filter: '(?i)🇦🇺|\\bAU\\b|澳大利亚|Australia' }
+  - { name: 🇵🇱波兰自动, <<: *u, hidden: true, filter: '(?i)🇵🇱|\\bPL\\b|波兰|Poland' }
+  - { name: 🇨🇦加拿大自动, <<: *u, hidden: true, filter: '(?i)🇨🇦|\\bCA\\b|加拿大|Canada' }
+  - { name: 🇺🇦乌克兰自动, <<: *u, hidden: true, filter: '(?i)🇺🇦|\\bUA\\b|乌克兰|Ukraine' }
+  - { name: 🇫🇷法国自动, <<: *u, hidden: true, filter: '(?i)🇫🇷|\\bFR\\b|法国|France' }
+  - { name: 🇧🇩孟加拉国自动, <<: *u, hidden: true, filter: '(?i)🇧🇩|\\bBD\\b|孟加拉国|Bangladesh' }
+  - { name: 🇳🇱荷兰自动, <<: *u, hidden: true, filter: '(?i)🇳🇱|\\bNL\\b|荷兰|Netherlands|\\bAN\\b|安的列斯|Netherlands Antilles' }
+  - { name: 🇮🇹意大利自动, <<: *u, hidden: true, filter: '(?i)🇮🇹|\\bIT\\b|意大利|Italy' }
+  - { name: 🇭🇰香港自动, <<: *u, hidden: true, filter: '(?i)🇭🇰|\\bHK\\b|香港|Hong Kong|HongKong' }
+  - { name: 🇷🇴罗马尼亚自动, <<: *u, hidden: true, filter: '(?i)🇷🇴|\\bRO\\b|罗马尼亚|Romania' }
+  - { name: 🇪🇸西班牙自动, <<: *u, hidden: true, filter: '(?i)🇪🇸|\\bES\\b|西班牙|Spain' }
+  - { name: 🇦🇷阿根廷自动, <<: *u, hidden: true, filter: '(?i)🇦🇷|\\bAR\\b|阿根廷|Argentina' }
+  - { name: 🇯🇵日本自动, <<: *u, hidden: true, filter: '(?i)🇯🇵|\\bJP\\b|日本|Japan' }
+  - { name: 🇨🇭瑞士自动, <<: *u, hidden: true, filter: '(?i)🇨🇭|\\bCH\\b|瑞士|Switzerland' }
+  - { name: 🇰🇷韩国自动, <<: *u, hidden: true, filter: '(?i)🇰🇷|\\bKR\\b|韩国|Korea, Republic of' }
+  - { name: 🇹🇷土耳其自动, <<: *u, hidden: true, filter: '(?i)🇹🇷|\\bTR\\b|土耳其|Turkey' }
+  - { name: 🇸🇪瑞典自动, <<: *u, hidden: true, filter: '(?i)🇸🇪|\\bSE\\b|瑞典|Sweden' }
+  - { name: 🇻🇳越南自动, <<: *u, hidden: true, filter: '(?i)🇻🇳|\\bVN\\b|越南|Viet Nam|VietNam' }
+  - { name: 🇿🇦南非自动, <<: *u, hidden: true, filter: '(?i)🇿🇦|\\bZA\\b|南非|South Africa|SouthAfrica' }
+  - { name: 🇮🇷伊朗自动, <<: *u, hidden: true, filter: '(?i)🇮🇷|\\bIR\\b|伊朗|Iran, Islamic Republic of' }
+  - { name: 🇧🇬保加利亚自动, <<: *u, hidden: true, filter: '(?i)🇧🇬|\\bBG\\b|保加利亚|Bulgaria' }
+  - { name: 🇦🇹奥地利自动, <<: *u, hidden: true, filter: '(?i)🇦🇹|\\bAT\\b|奥地利|Austria' }
+  - { name: 🇳🇿新西兰自动, <<: *u, hidden: true, filter: '(?i)🇳🇿|\\bNZ\\b|新西兰|New Zealand|NewZealand' }
+  - { name: 🇲🇽墨西哥自动, <<: *u, hidden: true, filter: '(?i)🇲🇽|\\bMX\\b|墨西哥|Mexico' }
+  - { name: 🇨🇿捷克自动, <<: *u, hidden: true, filter: '(?i)🇨🇿|\\bCZ\\b|捷克|Czech Republic|CzechRepublic' }
+  - { name: 🇸🇬新加坡自动, <<: *u, hidden: true, filter: '(?i)🇸🇬|\\bSG\\b|新加坡|Singapore' }
+  - { name: 🇵🇭菲律宾自动, <<: *u, hidden: true, filter: '(?i)🇵🇭|\\bPH\\b|菲律宾|Philippines' }
+  - { name: 🇹🇭泰国自动, <<: *u, hidden: true, filter: '(?i)🇹🇭|\\bTH\\b|泰国|Thailand' }
+  - { name: 🇨🇴哥伦比亚自动, <<: *u, hidden: true, filter: '(?i)🇨🇴|\\bCO\\b|哥伦比亚|Colombia' }
+  - { name: 🇩🇰丹麦自动, <<: *u, hidden: true, filter: '(?i)🇩🇰|\\bDK\\b|丹麦|Denmark' }
+  - { name: 🇹🇼台湾自动, <<: *u, hidden: true, filter: '(?i)🇹🇼|\\bTW\\b|台湾|Taiwan|Tai wan' }
+  - { name: 🇳🇴挪威自动, <<: *u, hidden: true, filter: '(?i)🇳🇴|\\bNO\\b|挪威|Norway' }
+  - { name: 🇧🇪比利时自动, <<: *u, hidden: true, filter: '(?i)🇧🇪|\\bBE\\b|比利时|Belgium' }
+  - { name: 🇨🇱智利自动, <<: *u, hidden: true, filter: '(?i)🇨🇱|\\bCL\\b|智利|Chile' }
+  - { name: 🇫🇮芬兰自动, <<: *u, hidden: true, filter: '(?i)🇫🇮|\\bFI\\b|芬兰|Finland' }
+  - { name: 🇵🇰巴基斯坦自动, <<: *u, hidden: true, filter: '(?i)🇵🇰|\\bPK\\b|巴基斯坦|Pakistan' }
+  - { name: 🇮🇱以色列自动, <<: *u, hidden: true, filter: '(?i)🇮🇱|\\bIL\\b|以色列|Israel' }
+  - { name: 🇲🇾马来西亚自动, <<: *u, hidden: true, filter: '(?i)🇲🇾|\\bMY\\b|马来西亚|Malaysia' }
+  - { name: 🇪🇺欧洲联盟自动, <<: *u, hidden: true, filter: '(?i)🇪🇺|\\bEU\\b|欧洲联盟|European Union|EuropeanUnion' }
+  - { name: 🇱🇻拉脱维亚自动, <<: *u, hidden: true, filter: '(?i)🇱🇻|\\bLV\\b|拉脱维亚|Latvia' }
+  - { name: 🇭🇺匈牙利自动, <<: *u, hidden: true, filter: '(?i)🇭🇺|\\bHU\\b|匈牙利|Hungary' }
+  - { name: 🇮🇪爱尔兰自动, <<: *u, hidden: true, filter: '(?i)🇮🇪|\\bIE\\b|爱尔兰|Ireland' }
+  - { name: 🇳🇬尼日利亚自动, <<: *u, hidden: true, filter: '(?i)🇳🇬|\\bNG\\b|尼日利亚|Nigeria' }
+  - { name: 🇸🇮斯洛文尼亚自动, <<: *u, hidden: true, filter: '(?i)🇸🇮|\\bSI\\b|斯洛文尼亚|Slovenia' }
+  - { name: 🇬🇷希腊自动, <<: *u, hidden: true, filter: '(?i)🇬🇷|\\bGR\\b|希腊|Greece' }
+  - { name: 🇪🇨厄瓜多尔自动, <<: *u, hidden: true, filter: '(?i)🇪🇨|\\bEC\\b|厄瓜多尔|Ecuador' }
+  - { name: 🇰🇪肯尼亚自动, <<: *u, hidden: true, filter: '(?i)🇰🇪|\\bKE\\b|肯尼亚|Kenya' }
+  - { name: 🇻🇪委内瑞拉自动, <<: *u, hidden: true, filter: '(?i)🇻🇪|\\bVE\\b|委内瑞拉|Venezuela, Bolivarian Republic of' }
+  - { name: 🇸🇰斯洛伐克自动, <<: *u, hidden: true, filter: '(?i)🇸🇰|\\bSK\\b|斯洛伐克|Slovakia' }
+  - { name: 🇱🇹立陶宛自动, <<: *u, hidden: true, filter: '(?i)🇱🇹|\\bLT\\b|立陶宛|Lithuania' }
+  - { name: 🇪🇪爱沙尼亚自动, <<: *u, hidden: true, filter: '(?i)🇪🇪|\\bEE\\b|爱沙尼亚|Estonia' }
+  - { name: 🇮🇶伊拉克自动, <<: *u, hidden: true, filter: '(?i)🇮🇶|\\bIQ\\b|伊拉克|Iraq' }
+  - { name: 🇲🇩摩尔多瓦自动, <<: *u, hidden: true, filter: '(?i)🇲🇩|\\bMD\\b|摩尔多瓦|Moldova, Republic of' }
+  - { name: 🇵🇪秘鲁自动, <<: *u, hidden: true, filter: '(?i)🇵🇪|\\bPE\\b|秘鲁|Peru' }
+  - { name: 🇰🇿哈萨克斯坦自动, <<: *u, hidden: true, filter: '(?i)🇰🇿|\\bKZ\\b|哈萨克斯坦|Kazakhstan' }
+  - { name: 🇷🇸塞尔维亚自动, <<: *u, hidden: true, filter: '(?i)🇷🇸|\\bRS\\b|塞尔维亚|Serbia' }
+  - { name: 🇸🇦沙特阿拉伯自动, <<: *u, hidden: true, filter: '(?i)🇸🇦|\\bSA\\b|沙特阿拉伯|Saudi Arabia|SaudiArabia' }
+  - { name: 🇳🇵尼泊尔自动, <<: *u, hidden: true, filter: '(?i)🇳🇵|\\bNP\\b|尼泊尔|Nepal' }
+  - { name: 🇭🇷克罗地亚自动, <<: *u, hidden: true, filter: '(?i)🇭🇷|\\bHR\\b|克罗地亚|Croatia' }
+  - { name: 🇩🇴多米尼加共和国自动, <<: *u, hidden: true, filter: '(?i)🇩🇴|\\bDO\\b|多米尼加共和国|Dominican Republic|DominicanRepublic' }
+  - { name: 🇱🇧黎巴嫩自动, <<: *u, hidden: true, filter: '(?i)🇱🇧|\\bLB\\b|黎巴嫩|Lebanon' }
+  - { name: 🇨🇾塞浦路斯自动, <<: *u, hidden: true, filter: '(?i)🇨🇾|\\bCY\\b|塞浦路斯|Cyprus' }
+  - { name: 🇵🇹葡萄牙自动, <<: *u, hidden: true, filter: '(?i)🇵🇹|\\bPT\\b|葡萄牙|Portugal' }
+  - { name: 🇦🇪阿联酋自动, <<: *u, hidden: true, filter: '(?i)🇦🇪|\\bAE\\b|阿联酋|United Arab Emirates' }
+  - { name: 🇵🇦巴拿马自动, <<: *u, hidden: true, filter: '(?i)🇵🇦|\\bPA\\b|巴拿马|Panama' }
+  - { name: 🇲🇲缅甸自动, <<: *u, hidden: true, filter: '(?i)🇲🇲|\\bMM\\b|缅甸|Myanmar' }
+  - { name: 🇬🇪格鲁吉亚自动, <<: *u, hidden: true, filter: '(?i)🇬🇪|\\bGE\\b|格鲁吉亚|Georgia' }
+  - { name: 🇰🇭柬埔寨自动, <<: *u, hidden: true, filter: '(?i)🇰🇭|\\bKH\\b|柬埔寨|Cambodia' }
+  - { name: 🇧🇾白俄罗斯自动, <<: *u, hidden: true, filter: '(?i)🇧🇾|\\bBY\\b|白俄罗斯|Belarus' }
+  - { name: 🇱🇺卢森堡自动, <<: *u, hidden: true, filter: '(?i)🇱🇺|\\bLU\\b|卢森堡|Luxembourg' }
+  - { name: 🇦🇲亚美尼亚自动, <<: *u, hidden: true, filter: '(?i)🇦🇲|\\bAM\\b|亚美尼亚|Armenia' }
+  - { name: 🇬🇭加纳自动, <<: *u, hidden: true, filter: '(?i)🇬🇭|\\bGH\\b|加纳|Ghana' }
+  - { name: 🇦🇱阿尔巴尼亚自动, <<: *u, hidden: true, filter: '(?i)🇦🇱|\\bAL\\b|阿尔巴尼亚|Albania' }
+  - { name: 🇹🇿坦桑尼亚自动, <<: *u, hidden: true, filter: '(?i)🇹🇿|\\bTZ\\b|坦桑尼亚|Tanzania, United Republic of' }
+  - { name: 🇨🇷哥斯达黎加自动, <<: *u, hidden: true, filter: '(?i)🇨🇷|\\bCR\\b|哥斯达黎加|Costa Rica|CostaRica' }
+  - { name: 🇭🇳洪都拉斯自动, <<: *u, hidden: true, filter: '(?i)🇭🇳|\\bHN\\b|洪都拉斯|Honduras' }
+  - { name: 🇺🇿乌兹别克斯坦自动, <<: *u, hidden: true, filter: '(?i)🇺🇿|\\bUZ\\b|乌兹别克斯坦|Uzbekistan' }
+  - { name: 🇵🇷波多黎各自动, <<: *u, hidden: true, filter: '(?i)🇵🇷|\\bPR\\b|波多黎各|Puerto Rico|Puerto Rico' }
+  - { name: 🇪🇬埃及自动, <<: *u, hidden: true, filter: '(?i)🇪🇬|\\bEG\\b|埃及|Egypt' }
+  - { name: 🇵🇾巴拉圭自动, <<: *u, hidden: true, filter: '(?i)🇵🇾|\\bPY\\b|巴拉圭|Paraguay' }
+  - { name: 🇸🇨塞舌尔自动, <<: *u, hidden: true, filter: '(?i)🇸🇨|\\bSC\\b|塞舌尔|Seychelles' }
+  - { name: 🇮🇸冰岛自动, <<: *u, hidden: true, filter: '(?i)🇮🇸|\\bIS\\b|冰岛|Iceland' }
+  - { name: 🇦🇿阿塞拜疆自动, <<: *u, hidden: true, filter: '(?i)🇦🇿|\\bAZ\\b|阿塞拜疆|Azerbaijan' }
+  - { name: 🇬🇹危地马拉自动, <<: *u, hidden: true, filter: '(?i)🇬🇹|\\bGT\\b|危地马拉|Guatemala' }
+  - { name: 🇰🇼科威特自动, <<: *u, hidden: true, filter: '(?i)🇰🇼|\\bKW\\b|科威特|Kuwait' }
+  - { name: 🇦🇴安哥拉自动, <<: *u, hidden: true, filter: '(?i)🇦🇴|\\bAO\\b|安哥拉|Angola' }
+  - { name: 🇦🇫阿富汗自动, <<: *u, hidden: true, filter: '(?i)🇦🇫|\\bAF\\b|阿富汗|Afghanistan' }
+  - { name: 🇲🇳蒙古自动, <<: *u, hidden: true, filter: '(?i)🇲🇳|\\bMN\\b|蒙古|Mongolia' }
+  - { name: 🇵🇸巴勒斯坦自动, <<: *u, hidden: true, filter: '(?i)🇵🇸|\\bPS\\b|巴勒斯坦|Palestine' }
+  - { name: 🇺🇬乌干达自动, <<: *u, hidden: true, filter: '(?i)🇺🇬|\\bUG\\b|乌干达|Uganda' }
+  - { name: 🇰🇬吉尔吉斯斯坦自动, <<: *u, hidden: true, filter: '(?i)🇰🇬|\\bKG\\b|吉尔吉斯斯坦|Kyrgyzstan' }
+  - { name: 🇧🇴玻利维亚自动, <<: *u, hidden: true, filter: '(?i)🇧🇴|\\bBO\\b|玻利维亚|Bolivia' }
+  - { name: 🇲🇰北马其顿自动, <<: *u, hidden: true, filter: '(?i)🇲🇰|\\bMK\\b|北马其顿|Macedonia' }
+  - { name: 🇲🇺毛里求斯自动, <<: *u, hidden: true, filter: '(?i)🇲🇺|\\bMU\\b|毛里求斯|Mauritius' }
+  - { name: 🇲🇹马耳他自动, <<: *u, hidden: true, filter: '(?i)🇲🇹|\\bMT\\b|马耳他|Malta' }
+  - { name: 🇨🇩刚果民主共和国自动, <<: *u, hidden: true, filter: '(?i)🇨🇩|\\bCD\\b|刚果民主共和国|Congo' }
+  - { name: 🇧🇦波斯尼亚和黑塞哥维那自动, <<: *u, hidden: true, filter: '(?i)🇧🇦|\\bBA\\b|波斯尼亚和黑塞哥维那|Bosnia and Herzegovina' }
+  - { name: 🇸🇻萨尔瓦多自动, <<: *u, hidden: true, filter: '(?i)🇸🇻|\\bSV\\b|萨尔瓦多|El Salvador' }
+  - { name: 🇯🇴约旦自动, <<: *u, hidden: true, filter: '(?i)🇯🇴|\\bJO\\b|约旦|Jordan' }
+  - { name: 🇻🇬英属维尔京群岛自动, <<: *u, hidden: true, filter: '(?i)🇻🇬|\\bVG\\b|英属维尔京群岛|Virgin Islands, British' }
+  - { name: 🇺🇾乌拉圭自动, <<: *u, hidden: true, filter: '(?i)🇺🇾|\\bUY\\b|乌拉圭|Uruguay' }
+  - { name: 🇵🇬巴布亚新几内亚自动, <<: *u, hidden: true, filter: '(?i)🇵🇬|\\bPG\\b|巴布亚新几内亚|Papua New Guinea' }
+  - { name: 🇱🇦老挝自动, <<: *u, hidden: true, filter: '(?i)🇱🇦|\\bLA\\b|老挝|Lao Peoples Democratic Republic' }
+  - { name: 🇧🇿伯利兹自动, <<: *u, hidden: true, filter: '(?i)🇧🇿|\\bBZ\\b|伯利兹|Belize' }
+  - { name: 🇿🇼津巴布韦自动, <<: *u, hidden: true, filter: '(?i)🇿🇼|\\bZW\\b|津巴布韦|Zimbabwe' }
+  - { name: 🇲🇿莫桑比克自动, <<: *u, hidden: true, filter: '(?i)🇲🇿|\\bMZ\\b|莫桑比克|Mozambique' }
+  - { name: 🇨🇼库拉索自动, <<: *u, hidden: true, filter: '(?i)🇨🇼|\\bCW\\b|库拉索|Curaçao' }
+  - { name: 🇨🇲喀麦隆自动, <<: *u, hidden: true, filter: '(?i)🇨🇲|\\bCM\\b|喀麦隆|Cameroon' }
+  - { name: 🇲🇼马拉维自动, <<: *u, hidden: true, filter: '(?i)🇲🇼|\\bMW\\b|马拉维|Malawi' }
+  - { name: 🇧🇼博茨瓦纳自动, <<: *u, hidden: true, filter: '(?i)🇧🇼|\\bBW\\b|博茨瓦纳|Botswana' }
+  - { name: 🇷🇼卢旺达自动, <<: *u, hidden: true, filter: '(?i)🇷🇼|\\bRW\\b|卢旺达|Rwanda' }
+  - { name: 🇳🇮尼加拉瓜自动, <<: *u, hidden: true, filter: '(?i)🇳🇮|\\bNI\\b|尼加拉瓜|Nicaragua' }
+  - { name: 🇧🇹不丹自动, <<: *u, hidden: true, filter: '(?i)🇧🇹|\\bBT\\b|不丹|Bhutan' }
+  - { name: 🇹🇯塔吉克斯坦自动, <<: *u, hidden: true, filter: '(?i)🇹🇯|\\bTJ\\b|塔吉克斯坦|Tajikistan' }
+  - { name: 🇱🇾利比亚自动, <<: *u, hidden: true, filter: '(?i)🇱🇾|\\bLY\\b|利比亚|Libya' }
+  - { name: 🇬🇮直布罗陀自动, <<: *u, hidden: true, filter: '(?i)🇬🇮|\\bGI\\b|直布罗陀|Gibraltar' }
+  - { name: 🇧🇫布基纳法索自动, <<: *u, hidden: true, filter: '(?i)🇧🇫|\\bBF\\b|布基纳法索|Burkina Faso|BurkinaFaso' }
+  - { name: 🇲🇦摩洛哥自动, <<: *u, hidden: true, filter: '(?i)🇲🇦|\\bMA\\b|摩洛哥|Morocco' }
+  - { name: 🇱🇰斯里兰卡自动, <<: *u, hidden: true, filter: '(?i)🇱🇰|\\bLK\\b|斯里兰卡|Sri Lanka' }
+  - { name: 🇿🇲赞比亚自动, <<: *u, hidden: true, filter: '(?i)🇿🇲|\\bZM\\b|赞比亚|Zambia' }
+  - { name: 🇹🇳突尼斯自动, <<: *u, hidden: true, filter: '(?i)🇹🇳|\\bTN\\b|突尼斯|Tunisia' }
+  - { name: 🇨🇮科特迪瓦自动, <<: *u, hidden: true, filter: '(?i)🇨🇮|\\bCI\\b|科特迪瓦|Côte dIvoire|CôtedIvoire' }
+  - { name: 🇲🇪黑山自动, <<: *u, hidden: true, filter: '(?i)🇲🇪|\\bME\\b|黑山|Montenegro' }
+  - { name: 🇧🇭巴林自动, <<: *u, hidden: true, filter: '(?i)🇧🇭|\\bBH\\b|巴林|Bahrain' }
+  - { name: 🇱🇮列支敦士登自动, <<: *u, hidden: true, filter: '(?i)🇱🇮|\\bLI\\b|列支敦士登|Liechtenstein' }
+  - { name: 🇸🇸南苏丹自动, <<: *u, hidden: true, filter: '(?i)🇸🇸|\\bSS\\b|南苏丹|South Sudan|SouthSudan' }
+  - { name: 🇮🇲曼岛自动, <<: *u, hidden: true, filter: '(?i)🇮🇲|\\bIM\\b|曼岛|Isle of Man' }
+  - { name: 🇸🇱塞拉利昂自动, <<: *u, hidden: true, filter: '(?i)🇸🇱|\\bSL\\b|塞拉利昂|Sierra Leone|SierraLeone' }
+  - { name: 🇶🇦卡塔尔自动, <<: *u, hidden: true, filter: '(?i)🇶🇦|\\bQA\\b|卡塔尔|Qatar' }
+  - { name: 🇸🇴索马里自动, <<: *u, hidden: true, filter: '(?i)🇸🇴|\\bSO\\b|索马里|Somalia' }
+  - { name: 🇧🇲百慕大自动, <<: *u, hidden: true, filter: '(?i)🇧🇲|\\bBM\\b|百慕大|Bermuda' }
+  - { name: 🇧🇯贝宁自动, <<: *u, hidden: true, filter: '(?i)🇧🇯|\\bBJ\\b|贝宁|Benin' }
+  - { name: 🇴🇲阿曼自动, <<: *u, hidden: true, filter: '(?i)🇴🇲|\\bOM\\b|阿曼|Oman' }
+  - { name: 🇬🇳几内亚自动, <<: *u, hidden: true, filter: '(?i)🇬🇳|\\bGN\\b|几内亚|Guinea' }
+  - { name: 🇩🇿阿尔及利亚自动, <<: *u, hidden: true, filter: '(?i)🇩🇿|\\bDZ\\b|阿尔及利亚|Algeria' }
+  - { name: 🇨🇬刚果自动, <<: *u, hidden: true, filter: '(?i)🇨🇬|\\bCG\\b|刚果|Congo' }
+  - { name: 🇹🇩乍得自动, <<: *u, hidden: true, filter: '(?i)🇹🇩|\\bTD\\b|乍得|Chad' }
+  - { name: 🇸🇳塞内加尔自动, <<: *u, hidden: true, filter: '(?i)🇸🇳|\\bSN\\b|塞内加尔|Senegal' }
+  - { name: 🇳🇨新喀里多尼亚自动, <<: *u, hidden: true, filter: '(?i)🇳🇨|\\bNC\\b|新喀里多尼亚|New Caledonia|NewCaledonia' }
+  - { name: 🇳🇦纳米比亚自动, <<: *u, hidden: true, filter: '(?i)🇳🇦|\\bNA\\b|纳米比亚|Namibia' }
+  - { name: 🇬🇦加蓬自动, <<: *u, hidden: true, filter: '(?i)🇬🇦|\\bGA\\b|加蓬|Gabon' }
+  - { name: 🇫🇯斐济自动, <<: *u, hidden: true, filter: '(?i)🇫🇯|\\bFJ\\b|斐济|Fiji' }
+  - { name: 🇹🇹特立尼达和多巴哥自动, <<: *u, hidden: true, filter: '(?i)🇹🇹|\\bTT\\b|特立尼达和多巴哥|Trinidad and Tobago' }
+  - { name: 🇲🇻马尔代夫自动, <<: *u, hidden: true, filter: '(?i)🇲🇻|\\bMV\\b|马尔代夫|Maldives' }
+  - { name: 🇱🇷利比里亚自动, <<: *u, hidden: true, filter: '(?i)🇱🇷|\\bLR\\b|利比里亚|Liberia' }
+  - { name: 🇦🇬安提瓜和巴布达自动, <<: *u, hidden: true, filter: '(?i)🇦🇬|\\bAG\\b|安提瓜和巴布达|Antigua and Barbuda' }
+  - { name: 🇰🇾开曼群岛自动, <<: *u, hidden: true, filter: '(?i)🇰🇾|\\bKY\\b|开曼群岛|Cayman Islands|CaymanIslands' }
+  - { name: 🇸🇿斯威士兰自动, <<: *u, hidden: true, filter: '(?i)🇸🇿|\\bSZ\\b|斯威士兰|Swaziland' }
+  - { name: 🇲🇴澳门自动, <<: *u, hidden: true, filter: '(?i)🇲🇴|\\bMO\\b|澳门|Macao' }
+  - { name: 🇭🇹海地自动, <<: *u, hidden: true, filter: '(?i)🇭🇹|\\bHT\\b|海地|Haiti' }
+  - { name: 🇧🇸巴哈马自动, <<: *u, hidden: true, filter: '(?i)🇧🇸|\\bBS\\b|巴哈马|Bahamas' }
+  - { name: 🇻🇺瓦努阿图自动, <<: *u, hidden: true, filter: '(?i)🇻🇺|\\bVU\\b|瓦努阿图|Vanuatu' }
+  - { name: 🇹🇱东帝汶自动, <<: *u, hidden: true, filter: '(?i)🇹🇱|\\bTL\\b|东帝汶|Timor  -Leste' }
+  - { name: 🇸🇩苏丹自动, <<: *u, hidden: true, filter: '(?i)🇸🇩|\\bSD\\b|苏丹|Sudan' }
+  - { name: 🇯🇲牙买加自动, <<: *u, hidden: true, filter: '(?i)🇯🇲|\\bJM\\b|牙买加|Jamaica' }
+  - { name: 🇻🇮美属维尔京群岛自动, <<: *u, hidden: true, filter: '(?i)🇻🇮|\\bVI\\b|美属维尔京群岛|Virgin Islands, U.S.' }
+  - { name: 🇸🇲圣马力诺自动, <<: *u, hidden: true, filter: '(?i)🇸🇲|\\bSM\\b|圣马力诺|San Marino|SanMarino' }
+  - { name: 🇲🇬马达加斯加自动, <<: *u, hidden: true, filter: '(?i)🇲🇬|\\bMG\\b|马达加斯加|Madagascar' }
+  - { name: 🇯🇪泽西岛自动, <<: *u, hidden: true, filter: '(?i)🇯🇪|\\bJE\\b|泽西岛|Jersey' }
+  - { name: 🇬🇲冈比亚自动, <<: *u, hidden: true, filter: '(?i)🇬🇲|\\bGM\\b|冈比亚|Gambia' }
+  - { name: 🇸🇧所罗门群岛自动, <<: *u, hidden: true, filter: '(?i)🇸🇧|\\bSB\\b|所罗门群岛|Solomon Islands|SolomonIslands' }
+  - { name: 🇲🇱马里自动, <<: *u, hidden: true, filter: '(?i)🇲🇱|\\bML\\b|马里|Mali' }
+  - { name: 🇧🇮布隆迪自动, <<: *u, hidden: true, filter: '(?i)🇧🇮|\\bBI\\b|布隆迪|Burundi' }
+  - { name: 🇼🇸萨摩亚自动, <<: *u, hidden: true, filter: '(?i)🇼🇸|\\bWS\\b|萨摩亚|Samoa' }
+  - { name: 🇱🇸莱索托自动, <<: *u, hidden: true, filter: '(?i)🇱🇸|\\bLS\\b|莱索托|Lesotho' }
+  - { name: 🇬🇺关岛自动, <<: *u, hidden: true, filter: '(?i)🇬🇺|\\bGU\\b|关岛|Guam' }
+  - { name: 🇬🇬格恩西岛自动, <<: *u, hidden: true, filter: '(?i)🇬🇬|\\bGG\\b|格恩西岛|Guernsey' }
+  - { name: 🇬🇩格林纳达自动, <<: *u, hidden: true, filter: '(?i)🇬🇩|\\bGD\\b|格林纳达|Grenada' }
+  - { name: 🇨🇻佛得角自动, <<: *u, hidden: true, filter: '(?i)🇨🇻|\\bCV\\b|佛得角|Cape Verde' }
+  - { name: 🇹🇬多哥自动, <<: *u, hidden: true, filter: '(?i)🇹🇬|\\bTG\\b|多哥|Togo' }
+  - { name: 🇷🇪留尼汪自动, <<: *u, hidden: true, filter: '(?i)🇷🇪|\\bRE\\b|留尼汪|RÉUNION' }
+  - { name: 🇳🇪尼日尔自动, <<: *u, hidden: true, filter: '(?i)🇳🇪|\\bNE\\b|尼日尔|Niger' }
+  - { name: 🇫🇴法罗群岛自动, <<: *u, hidden: true, filter: '(?i)🇫🇴|\\bFO\\b|法罗群岛|Faroe Islands|FaroeIslands' }
+  - { name: 🇧🇳文莱达鲁萨兰国自动, <<: *u, hidden: true, filter: '(?i)🇧🇳|\\bBN\\b|文莱|Brunei Darussalam|BruneiDarussalam' }
+  - { name: 🇧🇧巴巴多斯自动, <<: *u, hidden: true, filter: '(?i)🇧🇧|\\bBB\\b|巴巴多斯|Barbados' }
+  - { name: 🇲🇷毛里塔尼亚自动, <<: *u, hidden: true, filter: '(?i)🇲🇷|\\bMR\\b|毛里塔尼亚|Mauritania' }
+  - { name: 🇬🇵瓜德罗普自动, <<: *u, hidden: true, filter: '(?i)🇬🇵|\\bGP\\b|瓜德罗普|Guadeloupe' }
+  - { name: 🇪🇹埃塞俄比亚自动, <<: *u, hidden: true, filter: '(?i)🇪🇹|\\bET\\b|埃塞俄比亚|Ethiopia' }
+  - { name: 🇸🇷苏里南自动, <<: *u, hidden: true, filter: '(?i)🇸🇷|\\bSR\\b|苏里南|Suriname' }
+  - { name: 🇱🇨圣卢西亚自动, <<: *u, hidden: true, filter: '(?i)🇱🇨|\\bLC\\b|圣卢西亚|Saint Lucia|SaintLucia' }
+  - { name: 🇰🇳圣基茨和尼维斯自动, <<: *u, hidden: true, filter: '(?i)🇰🇳|\\bKN\\b|圣基茨|Saint Kitts|SaintKitts' }
+  - { name: 🇬🇶赤道几内亚自动, <<: *u, hidden: true, filter: '(?i)🇬🇶|\\bGQ\\b|赤道几内亚|Equatorial Guinea|EquatorialGuinea' }
+  - { name: 🇩🇲多米尼克自动, <<: *u, hidden: true, filter: '(?i)🇩🇲|\\bDM\\b|多米尼克|Dominica' }
+  - { name: 🇹🇲土库曼斯坦自动, <<: *u, hidden: true, filter: '(?i)🇹🇲|\\bTM\\b|土库曼斯坦|Turkmenistan' }
+  - { name: 🇸🇾叙利亚自动, <<: *u, hidden: true, filter: '(?i)🇸🇾|\\bSY\\b|叙利亚|Syrian Arab Republic' }
+  - { name: 🇲🇭马绍尔群岛自动, <<: *u, hidden: true, filter: '(?i)🇲🇭|\\bMH\\b|马绍尔|Marshall Islands|MarshallIslands' }
+  - { name: 🇬🇾圭亚那自动, <<: *u, hidden: true, filter: '(?i)🇬🇾|\\bGY\\b|圭亚那|Guyana' }
+  - { name: 🇬🇫法属圭亚那自动, <<: *u, hidden: true, filter: '(?i)🇬🇫|\\bGF\\b|法属圭亚那|French Guiana|FrenchGuiana' }
+  - { name: 🇨🇺古巴自动, <<: *u, hidden: true, filter: '(?i)🇨🇺|\\bCU\\b|古巴|Cuba' }
+  - { name: 🇾🇪也门自动, <<: *u, hidden: true, filter: '(?i)🇾🇪|\\bYE\\b|也门|Yemen' }
+  - { name: 🇵🇫法属波利尼西亚自动, <<: *u, hidden: true, filter: '(?i)🇵🇫|\\bPF\\b|法属波利尼西亚|French Polynesia|FrenchPolynesia' }
+  - { name: 🇲🇶马提尼克自动, <<: *u, hidden: true, filter: '(?i)🇲🇶|\\bMQ\\b|马提尼克|Martinique' }
+  - { name: 🇲🇫圣马丁（法属）自动, <<: *u, hidden: true, filter: '(?i)🇲🇫|\\bMF\\b|圣马丁|Saint Martin|SaintMartin' }
+  - { name: 🇫🇲密克罗尼西亚联邦自动, <<: *u, hidden: true, filter: '(?i)🇫🇲|\\bFM\\b|密克罗尼西亚|Micronesia' }
+  - { name: 🇩🇯吉布提自动, <<: *u, hidden: true, filter: '(?i)🇩🇯|\\bDJ\\b|吉布提|Djibouti' }
+  - { name: 🇧🇶博内尔、圣尤斯特歇斯和萨巴自动, <<: *u, hidden: true, filter: '(?i)🇧🇶|\\bBQ\\b|博内尔|Bonaire' }
+  - { name: 🇹🇴汤加自动, <<: *u, hidden: true, filter: '(?i)🇹🇴|\\bTO\\b|汤加|Tonga' }
+  - { name: 🇵🇼帕劳自动, <<: *u, hidden: true, filter: '(?i)🇵🇼|\\bPW\\b|帕劳|Palau' }
+  - { name: 🇳🇷瑙鲁自动, <<: *u, hidden: true, filter: '(?i)🇳🇷|\\bNR\\b|瑙鲁|Nauru' }
+  - { name: 🇦🇼阿鲁巴自动, <<: *u, hidden: true, filter: '(?i)🇦🇼|\\bAW\\b|阿鲁巴|Aruba' }
+  - { name: 🇦🇮安圭拉自动, <<: *u, hidden: true, filter: '(?i)🇦🇮|\\bAI\\b|安圭拉|Anguilla' }
+  - { name: 🇻🇨圣文森特和格林纳丁斯自动, <<: *u, hidden: true, filter: '(?i)🇻🇨|\\bVC\\b|圣文森特|Saint Vincent|SaintVincent' }
+  - { name: 🇸🇽荷属圣马丁自动, <<: *u, hidden: true, filter: '(?i)🇸🇽|\\bSX\\b|圣马丁|Sint Maarten|SintMaarten' }
+  - { name: 🇰🇮基里巴斯自动, <<: *u, hidden: true, filter: '(?i)🇰🇮|\\bKI\\b|基里巴斯|Kiribati' }
+  - { name: 🇨🇫中非共和国自动, <<: *u, hidden: true, filter: '(?i)🇨🇫|\\bCF\\b|中非|Central African Republic' }
+  - { name: 🇧🇱法属圣巴泰勒米自动, <<: *u, hidden: true, filter: '(?i)🇧🇱|\\bBL\\b|圣巴泰勒米|Saint Barth|SaintBarth' }
+  - { name: 🇻🇦梵蒂冈自动, <<: *u, hidden: true, filter: '(?i)🇻🇦|\\bVA\\b|梵蒂冈|Vatican' }
+  - { name: 🇹🇻图瓦卢自动, <<: *u, hidden: true, filter: '(?i)🇹🇻|\\bTV\\b|图瓦卢|Tuvalu' }
+  - { name: 🇹🇰托克劳自动, <<: *u, hidden: true, filter: '(?i)🇹🇰|\\bTK\\b|托克劳|Tokelau' }
+  - { name: 🇲🇨摩纳哥自动, <<: *u, hidden: true, filter: '(?i)🇲🇨|\\bMC\\b|摩纳哥|Monaco' }
+  - { name: 🇦🇸美属萨摩亚自动, <<: *u, hidden: true, filter: '(?i)🇦🇸|\\bAS\\b|美属萨摩亚|American Samoa|AmericanSamoa' }
+  - { name: 🇦🇩安道尔自动, <<: *u, hidden: true, filter: '(?i)🇦🇩|\\bAD\\b|安道尔|Andorra' }
+  - { name: 🇹🇨特克斯和凯科斯群岛自动, <<: *u, hidden: true, filter: '(?i)🇹🇨|\\bTC\\b|特克斯|Turks and Caicos' }
+  - { name: 🇸🇹圣多美和普林西比自动, <<: *u, hidden: true, filter: '(?i)🇸🇹|\\bST\\b|圣多美|Sao Tome|SaoTome' }
+  - { name: 🇳🇫诺福克岛自动, <<: *u, hidden: true, filter: '(?i)🇳🇫|\\bNF\\b|诺福克|Norfolk Island|NorfolkIsland' }
+  - { name: 🇲🇵北马里亚纳群岛自动, <<: *u, hidden: true, filter: '(?i)🇲🇵|\\bMP\\b|北马里亚纳|Northern Mariana Islands' }
+  - { name: 🇰🇲科摩罗自动, <<: *u, hidden: true, filter: '(?i)🇰🇲|\\bKM\\b|科摩罗|Comoros' }
+  - { name: 🇬🇼几内亚比绍自动, <<: *u, hidden: true, filter: '(?i)🇬🇼|\\bGW\\b|几内亚比绍|Guinea  -Bissau' }
+  - { name: 🇫🇰福克兰群岛自动, <<: *u, hidden: true, filter: '(?i)🇫🇰|\\bFK\\b|福克兰|Falkland' }
+  - { name: 🇨🇰库克群岛自动, <<: *u, hidden: true, filter: '(?i)🇨🇰|\\bCK\\b|库克|Cook Islands|CookIslands' }
+  - { name: 🇾🇹马约特自动, <<: *u, hidden: true, filter: '(?i)🇾🇹|\\bYT\\b|马约特|Mayotte' }
+  - { name: 🇼🇫瓦利斯和富图纳自动, <<: *u, hidden: true, filter: '(?i)🇼🇫|\\bWF\\b|瓦利斯|Wallis' }
+  - { name: 🇵🇲圣皮埃尔和密克隆自动, <<: *u, hidden: true, filter: '(?i)🇵🇲|\\bPM\\b|圣皮埃尔|Saint Pierre|SaintPierre' }
+  - { name: 🇳🇺纽埃自动, <<: *u, hidden: true, filter: '(?i)🇳🇺|\\bNU\\b|纽埃|Niue' }
+  - { name: 🇲🇸蒙特塞拉特自动, <<: *u, hidden: true, filter: '(?i)🇲🇸|\\bMS\\b|蒙特塞拉特|Montserrat' }
+  - { name: 🇰🇵朝鲜自动, <<: *u, hidden: true, filter: '(?i)🇰🇵|\\bKP\\b|朝鲜|North Korea|NorthKorea' }
+  - { name: 🇮🇴英属印度洋领地自动, <<: *u, hidden: true, filter: '(?i)🇮🇴|\\bIO\\b|印度洋|British Indian Ocean' }
+  - { name: 🇬🇱格陵兰自动, <<: *u, hidden: true, filter: '(?i)🇬🇱|\\bGL\\b|格陵兰|Greenland' }
+  - { name: 🇪🇷厄立特里亚自动, <<: *u, hidden: true, filter: '(?i)🇪🇷|\\bER\\b|厄立特里亚|Eritrea' }
+  - { name: 🇦🇽奥兰群岛自动, <<: *u, hidden: true, filter: '(?i)🇦🇽|\\bAX\\b|奥兰|Åland' }
+  - { name: GLOBAL, type: select, include-all: true, proxies: [ 🚀全球代理, 🟢手动选择, 🪧广告拦截, 🔎HttpDNS, 💧泄漏拦截, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 📲 电报消息, 💬 OpenAi, 📹 油管视频, 🎥 奈飞视频, 📺 巴哈姆特, 📺 哔哩哔哩东南亚, 📺 哔哩哔哩, 🌍 国外媒体, 🌏 国内媒体, 📢 谷歌FCM, Ⓜ️ 微软Bing, Ⓜ️ 微软云盘, Ⓜ️ 微软服务, 🍎 苹果服务, 🎮 游戏平台, 🎶 网易音乐 ], icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/GLOBAL.webp }
+
+rules:
+  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-RULES
+  - MATCH,🚀全球代理
+
+sub-rules:
+  SUB-RULES:
+    - RULE-SET,ads_domain,🪧广告拦截
+    - RULE-SET,blockhttpdns_domain,🔎HttpDNS
+    - RULE-SET,blockhttpdns_ip,🔎HttpDNS,no-resolve #仅匹配ip，不解析域名
+    - DOMAIN-KEYWORD,httpdns,🔎HttpDNS
+    - RULE-SET,stun_domain,💧泄漏拦截
+    - DST-PORT,3478,💧泄漏拦截
+    - AND,(NETWORK,TCP),(DST-PORT,5349),💧泄漏拦截
+    - AND,(NETWORK,UDP),(DST-PORT,5350),💧泄漏拦截
+    - AND,(NETWORK,UDP),(DST-PORT,5351),💧泄漏拦截
+    - AND,(NETWORK,UDP),(DST-PORT,19302),💧泄漏拦截
+    - DOMAIN-KEYWORD,stun,💧泄漏拦截
+    - RULE-SET,private_domain,🎯全球直连
+
+    - RULE-SET,googlefcm_domain,📢 谷歌FCM
+    - RULE-SET,google_cn_domain,🎯 全球直连
+    - RULE-SET,steam_cn_domain,🎯 全球直连
+    - RULE-SET,bing_domain,Ⓜ️ 微软Bing
+    - RULE-SET,onedrive_domain,Ⓜ️ 微软云盘
+    - RULE-SET,microsoft_domain,Ⓜ️ 微软服务
+    - RULE-SET,apple_domain,🍎 苹果服务
+    - RULE-SET,telegram_domain,📲 电报消息
+    - RULE-SET,telegram_ip,📲 电报消息,no-resolve
+    - RULE-SET,openai_domain,💬 OpenAi
+    - RULE-SET,neteasemusic_domain,🎶 网易音乐
+    - RULE-SET,epic_domain,🎮 游戏平台
+    - RULE-SET,origin_domain,🎮 游戏平台
+    - RULE-SET,sony_domain,🎮 游戏平台
+    - RULE-SET,steam_domain,🎮 游戏平台
+    - RULE-SET,nintendo_domain,🎮 游戏平台
+    - RULE-SET,youtube_domain,📹 油管视频
+    - RULE-SET,netflix_domain,🎥 奈飞视频
+    - RULE-SET,netflix_ip,🎥 奈飞视频,no-resolve
+    - RULE-SET,bahamut_domain,📺 巴哈姆特
+    - RULE-SET,biliintl_domain,📺 哔哩哔哩东南亚
+    - RULE-SET,bilibili_domain,📺 哔哩哔哩
+    - RULE-SET,media_cn_domain,🌏 国内媒体
+    - RULE-SET,media_domain,🌍 国外媒体
+    - RULE-SET,gfw_domain,🚀 节点选择
+
+    - RULE-SET,cn_ip,🎯全球直连
+
+rule-providers:
+  ads_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.mrs"
+    path: ./ruleset/ads_Domain.mrs
+  blockhttpdns_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/peiyingyao/Rule-for-OCD@master/rule/Clash/BlockHttpDNS/BlockHttpDNS_OCD_Domain.mrs"
+    path: ./ruleset/Category_httpdns_Domain.mrs
+  blockhttpdns_ip:
+    <<: *ipcidr_mrs
+    url: "https://cdn.jsdmirror.com/gh/peiyingyao/Rule-for-OCD@master/rule/Clash/BlockHttpDNS/BlockHttpDNS_OCD_IP.mrs"
+    path: ./ruleset/Category_httpdns_IP.mrs
+  stun_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/Kwisma/rules@main/rules/mihomo/STUN/STUN_Domain.mrs"
+    path: ./ruleset/STUN_Domain.mrs
+  cn_ip:
+    <<: *ipcidr_mrs
+    url: "https://cdn.jsdmirror.com/gh/Kwisma/clash-rules@release/cncidr.mrs"
+    path: ./ruleset/CN_IP.mrs
+  private_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs"
+    path: ./ruleset/Private_Domain.mrs
+
+  googlefcm_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/googlefcm.mrs"
+    path: ./ruleset/googlefcm_domain.mrs
+  google_cn_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google@cn.mrs"
+  steam_cn_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam@cn.mrs"
+    path: ./ruleset/steam_cn_domain
+  bing_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bing.mrs"
+    path: ./ruleset/bing_domain.mrs
+  onedrive_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/onedrive.mrs"
+    path: ./ruleset/onedrive_domain.mrs
+  microsoft_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs"
+    path: ./ruleset/microsoft_domain.mrs
+  apple_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple.mrs"
+    path: ./ruleset/apple_domain.mrs
+  telegram_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs"
+    path: ./ruleset/telegram_domain.mrs
+  telegram_ip:
+    <<: *ipcidr_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs"
+    path: ./ruleset/telegram_ip.mrs
+  openai_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/openai.mrs"
+    path: ./ruleset/openai_domain.mrs
+  neteasemusic_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/peiyingyao/Rule-for-OCD@master/rule/Clash/NetEaseMusic/NetEaseMusic_OCD_Domain.mrs"
+    path: ./ruleset/NetEaseMusic_Domain.mrs
+  epic_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/epicgames.mrs"
+    path: ./ruleset/epic_domain.mrs
+  origin_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/origin.mrs"
+    path: ./ruleset/origin_domain.mrs
+  sony_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/sony.mrs"
+    path: ./ruleset/sony_domain.mrs
+  steam_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam.mrs"
+    path: ./ruleset/steam_domain.mrs
+  nintendo_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/nintendo.mrs"
+    path: ./ruleset/nintendo_domain.mrs
+  youtube_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs"
+    path: ./ruleset/youtube_domain.mrs
+  netflix_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs"
+    path: ./ruleset/netflix_domain.mrs
+  netflix_ip:
+    <<: *ipcidr_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/netflix.mrs"
+    path: ./ruleset/netflix_ip.mrs
+  bahamut_domain:
+    <<: *domain_mrs
+    url:  "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bahamut.mrs"
+    path: ./ruleset/bahamut_domain.mrs
+  biliintl_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/biliintl.mrs"
+    path: ./ruleset/biliintl_domain.mrs
+  bilibili_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bilibili.mrs"
+    path: ./ruleset/bilibili_domain.mrs
+  media_cn_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-media@cn.mrs"
+    path: ./ruleset/media_cn_domain.mrs
+  media_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-media.mrs"
+    path: ./ruleset/media_domain.mrs
+  gfw_domain:
+    <<: *domain_mrs
+    url: "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/gfw.mrs"
+    path: ./ruleset/gfw_domain.mrs
